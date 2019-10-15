@@ -1,2 +1,5 @@
-# DIGITAL APPLICATION DOWNLOAD SERVİCE
+# Digital Application Download Service
 This project started for Bilkent University CS353 Database Management Systems course
+
+# UI
+# DATABASE
