@@ -325,7 +325,7 @@ public class Initialiser {
 
             statement.execute(create_message);
 
-
+           //Insertions can be added here...
 
         }
         catch(Exception e){
