@@ -59,7 +59,7 @@ public class Initialiser {
             System.out.println("Success");
 
             String create_user =  "CREATE TABLE User("
-                    +"user_id INT AUTO_INCREMENT,"
+                    +"user_id INT NOT NULL,"
                     +"password VARCHAR(255) NOT NULL,"
                     +"name VARCHAR(255) NOT NULL,"
                     +"surname VARCHAR(255) NOT NULL,"
@@ -137,7 +137,7 @@ public class Initialiser {
 
 
             String create_editor= "CREATE TABLE Editor("
-                    +"editor_id INT NOT NULL,"
+                    +"editor_id INT NOT NULL AUTO_INCREMENT,"
                     +"salary INT NOT NULL,"
                     +"FOREIGN KEY(editor_id) REFERENCES User(user_id),"
                     +"PRIMARY KEY(editor_id))";
@@ -211,7 +211,7 @@ public class Initialiser {
 
 
             String create_end_user = "CREATE TABLE End_user("
-                    +"end_user_id INT NOT NULL,"
+                    +"end_user_id INT AUTO_INCREMENT,"
                     +"FOREIGN KEY(end_user_id) REFERENCES User(user_id),"
                     +"PRIMARY KEY (end_user_id))";
 
@@ -242,7 +242,7 @@ public class Initialiser {
 
 
             String create_developer = "CREATE TABLE Developer("
-                    +"developer_id INT NOT NULL,"
+                    +"developer_id INT AUTO_INCREMENT,"
                     +"company_name VARCHAR(255),"
                     +"FOREIGN KEY(developer_id) REFERENCES User(user_id),"
                     +"PRIMARY KEY (developer_id))";
@@ -315,7 +315,13 @@ public class Initialiser {
 
             statement.execute(create_message);
 
+            String query1 = "ALTER TABLE End_user AUTO_INCREMENT = 1000000;";
+            String query2 = "ALTER TABLE Developer AUTO_INCREMENT = 2000000;";
+            String query3 = "ALTER TABLE Editor AUTO_INCREMENT = 3000000;";
 
+            statement.execute(query1);
+            statement.execute(query2);
+            statement.execute(query3);
 
         }
         catch(Exception e){
