@@ -83,7 +83,7 @@ public class Initialiser {
                     +"RAM INT,"
                     +"CPU VARCHAR(255),"
                     +"OS_version VARCHAR(255),"
-                    +"PRIMARY KEY(RAM,CPU,OS_version))";
+                    +"PRIMARY KEY(app_id,RAM,CPU,OS_version))";
 
             statement.execute(create_min_req);
 
@@ -125,17 +125,6 @@ public class Initialiser {
 
             statement.execute(create_sub_category);
 
-            String create_has_req = "CREATE TABLE Has_req("
-                    +"app_id INT NOT NULL,"
-                    +"RAM INT NOT NULL,"
-                    +"CPU VARCHAR(255) NOT NULL,"
-                    +"OS_version VARCHAR(255) NOT NULL,"
-                    +"FOREIGN KEY(app_id) REFERENCES Application(app_id),"
-                    +"FOREIGN KEY(RAM,CPU,OS_version) REFERENCES Minimum_requirements(RAM,CPU,OS_version),"
-                    +"PRIMARY KEY (app_id, RAM, CPU, OS_version))";
-
-            statement.execute(create_has_req);
-
             String create_has_category = "CREATE TABLE Has_category("
                     +"app_id INT NOT NULL,"
                     +"category_id INT NOT NULL,"
@@ -159,7 +148,7 @@ public class Initialiser {
             String create_upload_movie = "CREATE TABLE Upload_movie("
                     +"user_id INT NOT NULL,"
                     +"movie_id INT NOT NULL,"
-                    +"FOREIGN KEY(user_id) REFERENCES User(user_id),"
+                    +"FOREIGN KEY(user_id) REFERENCES Editor(editor_id),"
                     +"FOREIGN KEY(movie_id) REFERENCES Movie(movie_id),"
                     +"PRIMARY KEY (user_id,movie_id))";
 
@@ -171,7 +160,7 @@ public class Initialiser {
             String create_upload_book =  "CREATE TABLE Upload_book("
                     +"user_id INT NOT NULL,"
                     +"book_id INT NOT NULL,"
-                    +"FOREIGN KEY(user_id) REFERENCES User(user_id),"
+                    +"FOREIGN KEY(user_id) REFERENCES Editor(editor_id),"
                     +"FOREIGN KEY(book_id) REFERENCES Book(book_id),"
                     +"PRIMARY KEY (user_id, book_id))";
 
@@ -203,7 +192,7 @@ public class Initialiser {
                     +"FOREIGN KEY(editor_id) REFERENCES User(user_id),"
                     +"FOREIGN KEY(dev_id) REFERENCES User(user_id),"
                     +"FOREIGN KEY(app_id) REFERENCES Application(app_id),"
-                    +"PRIMARY KEY (editor_id,dev_id, app_id))";
+                    +"PRIMARY KEY (app_id))";
 
             statement.execute(create_request_publish);
 
@@ -215,21 +204,26 @@ public class Initialiser {
                     +"FOREIGN KEY(editor_id) REFERENCES User(user_id),"
                     +"FOREIGN KEY(dev_id) REFERENCES User(user_id),"
                     +"FOREIGN KEY(app_id) REFERENCES Application(app_id),"
-                    +"PRIMARY KEY (editor_id,dev_id, app_id))";
+                    +"PRIMARY KEY (app_id))";
 
             statement.execute(create_req_update);
 
 
 
+            String create_end_user = "CREATE TABLE End_user("
+                    +"end_user_id INT NOT NULL,"
+                    +"FOREIGN KEY(end_user_id) REFERENCES User(user_id),"
+                    +"PRIMARY KEY (end_user_id))";
 
+            statement.execute(create_end_user);
 
 
             String create_wish_list =  "CREATE TABLE Wish_list("
-                    +"user_id INT NOT NULL,"
+                    +"end_user_id INT NOT NULL,"
                     +"app_id INT NOT NULL,"
-                    +"FOREIGN KEY(user_id) REFERENCES User(user_id),"
+                    +"FOREIGN KEY(end_user_id) REFERENCES End_user(end_user_id),"
                     +"FOREIGN KEY(app_id) REFERENCES Application(app_id),"
-                    +"PRIMARY KEY (user_id, app_id))";
+                    +"PRIMARY KEY (end_user_id, app_id))";
 
 
             statement.execute(create_wish_list);
@@ -239,24 +233,19 @@ public class Initialiser {
                     +"user_id INT NOT NULL,"
                     +"app_id INT NOT NULL,"
                     +"point DOUBLE,"
-                    +"FOREIGN KEY(user_id) REFERENCES User(user_id),"
+                    +"FOREIGN KEY(user_id) REFERENCES End_user(end_user_id),"
                     +"FOREIGN KEY(app_id) REFERENCES Application(app_id),"
                     +"PRIMARY KEY (user_id, app_id))";
 
             statement.execute(create_rate);
 
-            String create_end_user = "CREATE TABLE End_user("
-                    +"user_id INT NOT NULL,"
-                    +"FOREIGN KEY(user_id) REFERENCES User(user_id),"
-                    +"PRIMARY KEY (user_id))";
 
-            statement.execute(create_end_user);
 
             String create_developer = "CREATE TABLE Developer("
-                    +"user_id INT NOT NULL,"
+                    +"developer_id INT NOT NULL,"
                     +"company_name VARCHAR(255),"
-                    +"FOREIGN KEY(user_id) REFERENCES User(user_id),"
-                    +"PRIMARY KEY (user_id))";
+                    +"FOREIGN KEY(developer_id) REFERENCES User(user_id),"
+                    +"PRIMARY KEY (developer_id))";
 
             statement.execute(create_developer);
 
@@ -276,9 +265,9 @@ public class Initialiser {
             String create_has_device = "CREATE TABLE Has_device("
                     +"user_id INT NOT NULL,"
                     +"device_id INT NOT NULL,"
-                    +"FOREIGN KEY(user_id) REFERENCES User(user_id),"
+                    +"FOREIGN KEY(user_id) REFERENCES End_user(end_user_id),"
                     +"FOREIGN KEY(device_id) REFERENCES Device(device_id),"
-                    +"PRIMARY KEY (user_id,device_id))";
+                    +"PRIMARY KEY (device_id))";
 
             statement.execute(create_has_device);
 
@@ -287,8 +276,9 @@ public class Initialiser {
                     +"user_id INT NOT NULL,"
                     +"device_id INT NOT NULL,"
                     +"app_id INT NOT NULL,"
-                    +"FOREIGN KEY(user_id) REFERENCES Has_device(user_id),"
-                    +"FOREIGN KEY(device_id) REFERENCES Has_device(device_id),"
+                    //+"FOREIGN KEY(user_id) REFERENCES Has_device(user_id),"
+                    //+"FOREIGN KEY(device_id) REFERENCES Has_device(device_id),"
+                    +"FOREIGN KEY(user_id,device_id) REFERENCES Has_device(user_id,device_id)," // for aggregation
                     +"FOREIGN KEY(app_id) REFERENCES Application(app_id),"
                     +"PRIMARY KEY (user_id,device_id,app_id))";
 
@@ -299,7 +289,7 @@ public class Initialiser {
                     +"user_id INT,"
                     +"IBAN CHAR(26),"
                     +"credit_card CHAR(16),"
-                    +"FOREIGN KEY(user_id) REFERENCES User(user_id),"
+                    +"FOREIGN KEY(user_id) REFERENCES End_user(end_user_id),"
                     +"PRIMARY KEY (pay_id,user_id))";
 
             statement.execute(create_payment_method);
@@ -309,7 +299,7 @@ public class Initialiser {
                     +"user_id INT NOT NULL,"
                     +"app_id INT NOT NULL,"
                     +"content VARCHAR(255) NOT NULL,"
-                    +"FOREIGN KEY(user_id) REFERENCES User(user_id),"
+                    +"FOREIGN KEY(user_id) REFERENCES End_user(end_user_id),"
                     +"FOREIGN KEY(app_id) REFERENCES Application(app_id),"
                     +"PRIMARY KEY (comment_id, user_id))";
 
@@ -325,7 +315,7 @@ public class Initialiser {
 
             statement.execute(create_message);
 
-           //Insertions can be added here...
+
 
         }
         catch(Exception e){
