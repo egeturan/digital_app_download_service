@@ -34,7 +34,7 @@ public class QueryService {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
         }
-        return counter;
+        return 10000000+counter;
     }
 
 
@@ -60,7 +60,7 @@ public class QueryService {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
         }
-        return counter;
+        return 20000000+counter;
     }
 
 
@@ -85,7 +85,7 @@ public class QueryService {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
         }
-        return counter;
+        return 30000000+counter;
     }
     
     
