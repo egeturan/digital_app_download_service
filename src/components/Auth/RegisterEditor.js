@@ -77,7 +77,7 @@ class RegisterEditor extends React.Component {
     if (this.isFormValid()) {
       this.setState({ errors: [], loading: true });
       const user = {
-        name: this.state.username,
+        username: this.state.username,
         surname: this.state.surname,
         salary: this.state.salary,
         date: this.state.date,
@@ -90,18 +90,19 @@ class RegisterEditor extends React.Component {
       axios.post(`http://localhost:8080/registerEditor/`, user )
       .then(res => {
         console.log(res);
-        console.log("Response is: " + res.data.situation);
-
-        if(res.data.situation === 1){
-          
-         // this.props.history.push("/home-page");
-        }else{
-          
-        }
+        /*
+        GLOBAL.userG = res.data;
+        console.log("Global is: " + GLOBAL.userG);
+        */
+       if(res.data.situation === 1){
+        this.props.history.push("/login");
+      }else{
+        this.setState({ errors: [], loading: false });          
+      }
         
       })
     }
-    this.setState({ errors: [], loading: false });
+
   };
 
   saveUser = createdUser => {

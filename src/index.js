@@ -9,6 +9,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import Apprenderer from './AppRenderer.js';
 import axios from 'axios';
 import GLOBAL from './global.js';
+import ApplicationInformationPage from './ApplicationInformationPage';
 
 import "semantic-ui-css/semantic.min.css";
 
@@ -24,6 +25,7 @@ import { Provider, connect } from "react-redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./reducers";
 import { setUser, clearUser } from "./actions";
+import HomePage from "./Homepage";
 
 const store = createStore(rootReducer, composeWithDevTools());
 
@@ -55,9 +57,10 @@ class Root extends React.Component {
         <Route exact path="/" component={Apprenderer} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/home-page" component={Apprenderer} />
+        <Route path="/home-page" component={HomePage} />
         <Route path="/register-editor" component={RegisterEditor} />
         <Route path="/register-developer" component={RegisterDeveloper} />
+        <Route path="/app-information" component={ApplicationInformationPage} />
       </Switch>
     );
   }

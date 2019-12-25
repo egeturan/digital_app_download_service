@@ -16,7 +16,7 @@ import { Link, withRouter } from "react-router-dom";
 
 class Login extends React.Component {
   state = {
-    email: "",
+    username: "",
     password: "",
     errors: [],
     loading: false
@@ -34,7 +34,7 @@ class Login extends React.Component {
     if (this.isFormValid(this.state)) {
       this.setState({ errors: [], loading: true });
       const user = {
-        email: this.state.email,
+        username: this.state.username,
         password: this.state.password
       };
 
@@ -42,20 +42,36 @@ class Login extends React.Component {
 
       axios.post(`http://localhost:8080/login`, user )
       .then(res => {
-        console.log(res);
-        console.log("Response is: " + res.data.situation);
+        //console.log(res);
 
-        if(res.data.situation === 1){
-          console.log(res.data.hashData);
-          GLOBAL.screen = res.data.hashData;
-          console.log("global is: " + GLOBAL.screen);
-       /*   this.props.history.push({
-            pathname: '/auth-controller',
-            state: { detail: res.data.hashData }
-          })*/
-        }else{
-          this.setState({ errors: [], loading: false });          
+        if(res.data.username == null){
+          console.log("User is not returned");
         }
+        else
+        {
+          GLOBAL.userG = res.data;
+          console.log("User id is:"  + res.data.user_id);
+          let value = res.data.user_id;
+          value =  value / 10000000;
+          value = parseInt(value, 10);
+          console.log("Value is: " + value);
+          if(value === 1){
+              console.log("1");
+              GLOBAL.typeU = 1;
+          }else if(value === 2){
+            console.log("2");
+              GLOBAL.typeU = 2;
+          }else if(value === 3){
+            console.log("3");
+              GLOBAL.typeU = 3;
+          }else{
+            console.log("asdasdasdasd");
+          }
+
+          console.log(GLOBAL.userG);
+          this.props.history.push("/");
+        }
+      
         
       })
       
@@ -73,7 +89,7 @@ class Login extends React.Component {
     this.props.history.push("/register");
   }
 
-  isFormValid = ({ email, password }) => email && password;
+  isFormValid = ({ username, password }) => username && password;
 
   handleInputError = (errors, inputName) => {
     return errors.some(error => error.message.toLowerCase().includes(inputName))
@@ -90,7 +106,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password, errors, loading } = this.state;
+    const { username, password, errors, loading } = this.state;
 
     return (
       <div>
@@ -113,14 +129,14 @@ class Login extends React.Component {
             <Segment stacked>
               <Form.Input
                 fluid
-                name="email"
+                name="username"
                 icon="mail"
                 iconPosition="left"
-                placeholder="Email Address"
+                placeholder="Username"
                 onChange={this.handleChange}
-                value={email}
-                className={this.handleInputError(errors, "email")}
-                type="email"
+                value={username}
+                className={this.handleInputError(errors, "username")}
+                type="username"
               />
 
               <Form.Input

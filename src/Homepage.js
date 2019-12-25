@@ -6,7 +6,6 @@ import whatsapp from './assets/images/whatsapp.png';
 
 
 class HomePage extends React.Component {
-
   state = {
     showDisplay: 0
   };

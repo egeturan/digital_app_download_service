@@ -47,25 +47,6 @@ class NavigationAda extends React.Component {
       let displayer = null;
 
 
-    let notAutheticatedNavber = (
-        <div>
-        <Navbar bg="dark" variant="dark">
-          <img src={logo} style={style1} className="App-logo" alt="logo"/>
-
-        <Navbar.Brand href="#home" style={{marginLeft: "40px"}}> ADA STORE</Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          <Nav.Link href="#features">Top Applications</Nav.Link>
-       
-        </Nav>
-            <Button variant="success" onClick={this.displaySwitch.bind(this, 1)} style={{width: "150px", height: "50px"}}>Log In</Button>
-            <Button variant="primary" onClick={this.displaySwitch.bind(this, 2)} style={{width: "150px", height: "50px"}}>Register as User</Button>
-            <Button variant="success" onClick={this.displaySwitch.bind(this, 3)} style={{width: "150px", height: "50px"}}>Register as Editor</Button>
-            <Button variant="primary" onClick={this.displaySwitch.bind(this, 4)} style={{width: "150px", height: "50px"}}>Register as Developer</Button>
-            
-      </Navbar>
-      </div>
-    );
 
 
     let authenticatedNavbar = (
@@ -83,6 +64,7 @@ class NavigationAda extends React.Component {
         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
         <Button variant="success">Search</Button>
       </Form>
+      <Button variant="light" onClick={this.props.click} style={{width: "150px", height: "50px"}}>Logout</Button>
       <Image src={profile} style={style2} alt='alt' roundedCircle onClick={this.displaySwitch.bind(this, 5)}/>
     </Navbar>
     </div>
@@ -90,14 +72,14 @@ class NavigationAda extends React.Component {
 
 
     if(this.state.authentication == 0){
-       displayer = notAutheticatedNavber;
+       
     }else if(this.state.authentication == 1){
       displayer = authenticatedNavbar;
     }
 
 
-    if(this.state.showDisplay == 1){
-      this.props.history.push("/login");
+    if(this.state.showDisplay == 9){
+      
     }else if(this.state.showDisplay == 2){
       this.props.history.push("/register");
     } else if(this.state.showDisplay == 3){

@@ -89,16 +89,16 @@ class Register extends React.Component {
       axios.post(`http://localhost:8080/registerUser/`, user )
       .then(res => {
         console.log(res);
+        /*
         GLOBAL.userG = res.data;
         console.log("Global is: " + GLOBAL.userG);
-        this.props.history.push("/");
-        /*console.log("Response is: " + res.data.situation);
-        
-        if(res.data.situation === 1){
-          
-        }else{
-          this.setState({ errors: [], loading: false });          
-        }*/
+        */
+       if(res.data.situation === 1){
+        this.props.history.push("/login");
+      }else{
+        this.setState({ errors: [], loading: false });          
+      }
+       
         
       })
      
