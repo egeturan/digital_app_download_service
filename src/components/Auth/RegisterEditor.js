@@ -1,7 +1,6 @@
 import React from "react";
 import axios from 'axios';
-import GLOBAL from '../../global';
-
+import md5 from "md5";
 import {
   Grid,
   Form,
@@ -14,12 +13,12 @@ import {
 } from "semantic-ui-react";
 import { Link, Route, withRouter } from "react-router-dom";
 
-
-class Register extends React.Component {
+class RegisterEditor extends React.Component {
   state = {
     username: "",
     surname: "",
     date: "",
+    salary: "",
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -44,11 +43,12 @@ class Register extends React.Component {
     }
   };
 
-  isFormEmpty = ({ username, surname, date, email, password, passwordConfirmation }) => {
+  isFormEmpty = ({ username, surname, date, salary, email, password, passwordConfirmation }) => {
     return (
       !username.length ||
       !surname.length ||
       !date.length ||
+      !salary ||
       !email.length ||
       !password.length ||
       !passwordConfirmation.length
@@ -77,8 +77,9 @@ class Register extends React.Component {
     if (this.isFormValid()) {
       this.setState({ errors: [], loading: true });
       const user = {
-        username: this.state.username,
+        name: this.state.username,
         surname: this.state.surname,
+        salary: this.state.salary,
         date: this.state.date,
         email: this.state.email,
         password: this.state.password
@@ -86,34 +87,25 @@ class Register extends React.Component {
 
       console.log(user);
 
-      axios.post(`http://localhost:8080/registerUser/`, user )
+      axios.post(`http://localhost:8080/registerEditor/`, user )
       .then(res => {
         console.log(res);
-        GLOBAL.userG = res.data;
-        console.log("Global is: " + GLOBAL.userG);
-        this.props.history.push("/");
-        /*console.log("Response is: " + res.data.situation);
-        
+        console.log("Response is: " + res.data.situation);
+
         if(res.data.situation === 1){
           
+         // this.props.history.push("/home-page");
         }else{
-          this.setState({ errors: [], loading: false });          
-        }*/
+          
+        }
         
       })
-     
     }
-    this.setState({ errors: [], loading: false });     
-    
-
-
+    this.setState({ errors: [], loading: false });
   };
 
   saveUser = createdUser => {
-    return this.state.usersRef.child(createdUser.user.uid).set({
-      name: createdUser.user.displayName,
-      avatar: createdUser.user.photoURL
-    });
+    return false;
   };
 
   handleInputError = (errors, inputName) => {
@@ -135,6 +127,7 @@ class Register extends React.Component {
       username,
       surname,
       date,
+      salary,
       email,
       password,
       passwordConfirmation,
@@ -156,7 +149,7 @@ class Register extends React.Component {
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as="h1" icon color="orange" textAlign="center">
             <Icon name="coffee" color="orange" />
-            User Register to AdaStore
+            Editor Register to AdaStore
           </Header>
           <Form onSubmit={this.handleSubmit} size="large">
             <Segment stacked>
@@ -165,13 +158,13 @@ class Register extends React.Component {
                 name="username"
                 icon="user"
                 iconPosition="left"
-                placeholder="Username"
+                placeholder="Name"
                 onChange={this.handleChange}
                 value={username}
                 type="text"
               />
 
-              <Form.Input
+            <Form.Input
                 fluid
                 name="surname"
                 icon="user"
@@ -182,7 +175,7 @@ class Register extends React.Component {
                 type="text"
               />
 
-              <Form.Input
+            <Form.Input
                 fluid
                 name="date"
                 icon="user"
@@ -190,6 +183,17 @@ class Register extends React.Component {
                 placeholder="date"
                 onChange={this.handleChange}
                 value={date}
+                type="text"
+              />
+
+            <Form.Input
+                fluid
+                name="salary"
+                icon="user"
+                iconPosition="left"
+                placeholder="salary"
+                onChange={this.handleChange}
+                value={salary}
                 type="text"
               />
 
@@ -250,11 +254,12 @@ class Register extends React.Component {
             Do yoy have an account ? <Link to="/login">Sign-In</Link>
           </Message>
           <Message>
-            Register As Editor ? <Link to="/register-editor">Register as Editor</Link>
+            Register As User ? <Link to="/register">Register as User</Link>
           </Message>
           <Message>
             Register as Developer ? <Link to="/register-developer">Register as Developer</Link>
           </Message>
+
         </Grid.Column>
       </Grid>
       </div>
@@ -262,4 +267,4 @@ class Register extends React.Component {
   }
 }
 
-export default withRouter(Register);
+export default withRouter(RegisterEditor);

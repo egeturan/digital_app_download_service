@@ -1,12 +1,87 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import Login from "./components/Auth/Login";
+import Register from "./components/Auth/Register";
+import RegisterDeveloper from "./components/Auth/RegisterDeveloper";
+import RegisterEditor from "./components/Auth/RegisterEditor";
+import Spinner from "./Spinner";
+import registerServiceWorker from "./registerServiceWorker";
+import Apprenderer from './AppRenderer.js';
+import axios from 'axios';
+import GLOBAL from './global.js';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import "semantic-ui-css/semantic.min.css";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter
+} from "react-router-dom";
+
+import { createStore } from "redux";
+import { Provider, connect } from "react-redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from "./reducers";
+import { setUser, clearUser } from "./actions";
+
+const store = createStore(rootReducer, composeWithDevTools());
+
+class Root extends React.Component {
+  componentDidMount() {
+   
+    /*
+    axios.get(`http://localhost:8080/isAuthenticated`)
+    .then(response => {
+      let user = {students: response.data};
+      user = null;
+      if(user){
+        console.log("User is authenticated");
+        this.props.setUser(user);
+        this.props.history.push("/personal");
+      }else{
+        console.log("User is not defined");
+      }
+  
+    })*/
+   
+  }
+
+  render() {
+    return false ? (
+      <Spinner />
+    ) : (
+      <Switch>
+        <Route exact path="/" component={Apprenderer} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/home-page" component={Apprenderer} />
+        <Route path="/register-editor" component={RegisterEditor} />
+        <Route path="/register-developer" component={RegisterDeveloper} />
+      </Switch>
+    );
+  }
+}
+
+export default Root;
+
+const mapStateFromProps = state => ({
+  isLoading: state.user.isLoading
+});
+
+const RootWithAuth = withRouter(
+  connect(
+    mapStateFromProps,
+    { setUser, clearUser }
+  )(Root)
+);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <Router>
+      <RootWithAuth />
+    </Router>
+  </Provider>,
+  document.getElementById("root")
+);
+registerServiceWorker();

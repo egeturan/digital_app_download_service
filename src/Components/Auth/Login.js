@@ -1,4 +1,7 @@
 import React from "react";
+import axios from 'axios';
+import GLOBAL from '../../global';
+
 import {
   Grid,
   Form,
@@ -9,6 +12,7 @@ import {
   Icon,
   Container
 } from "semantic-ui-react";
+import { Link, withRouter } from "react-router-dom";
 
 class Login extends React.Component {
   state = {
@@ -29,17 +33,44 @@ class Login extends React.Component {
     event.preventDefault();
     if (this.isFormValid(this.state)) {
       this.setState({ errors: [], loading: true });
+      const user = {
+        email: this.state.email,
+        password: this.state.password
+      };
 
+      console.log(user);
+
+      axios.post(`http://localhost:8080/login`, user )
+      .then(res => {
+        console.log(res);
+        console.log("Response is: " + res.data.situation);
+
+        if(res.data.situation === 1){
+          console.log(res.data.hashData);
+          GLOBAL.screen = res.data.hashData;
+          console.log("global is: " + GLOBAL.screen);
+       /*   this.props.history.push({
+            pathname: '/auth-controller',
+            state: { detail: res.data.hashData }
+          })*/
+        }else{
+          this.setState({ errors: [], loading: false });          
+        }
+        
+      })
+      
     }
+
+    this.setState({ errors: [], loading: false });
   };
 
 //go to register with router
   changeToMainPage(num) {
-    
+    this.props.history.push("/home-page");
   }
 
   changeToRegister(num){
-    
+    this.props.history.push("/register");
   }
 
   isFormValid = ({ email, password }) => email && password;
@@ -51,11 +82,11 @@ class Login extends React.Component {
   };
 
   goToRegisterPage(num) {
-
+    this.props.history.push("/register");
   }
 
   goToMainPage(num){
-   
+    this.props.history.push("/home-page");
   }
 
   render() {
@@ -65,10 +96,10 @@ class Login extends React.Component {
       <div>
         <Container textAlign="right" style={{height: 0, marginLeft: "140px", width: "auto"}}>
       <Button onClick={this.goToMainPage.bind(this, 0)}>
-        HOME PAGE
+        Home Page
       </Button>
       <Button onClick={this.goToRegisterPage.bind(this, 0)}>
-        Kayıt Ol
+        Register as User
       </Button>
 
        </Container>
@@ -76,7 +107,7 @@ class Login extends React.Component {
         <Grid.Column style={{ maxWidth: 450 }}>
           <Header as="h1" icon color="violet" textAlign="center">
             <Icon name="coffee" color="violet" />
-            LOGIN TO ADASTORE
+            Sign-in to Adastore
           </Header>
           <Form onSubmit={this.handleSubmit} size="large">
             <Segment stacked>
@@ -112,10 +143,9 @@ class Login extends React.Component {
                 size="large"
                 style={{marginTop: "1px"}}
               >
-               LOGIN
-            
-
+                Sign-up
               </Button>
+ 
             </Segment>
           </Form>
           {errors.length > 0 && (
@@ -125,11 +155,15 @@ class Login extends React.Component {
             </Message>
           )}
           <Message>
-           Don't you have an account <Link to="/register">Register</Link>
+            Don't you have an account? <Link to="/register">Sign-up as User</Link>
           </Message>
           <Message>
-            Did you forget your account <Link to="/forget-password">I forgot my password</Link>
+            Don't you have an account? <Link to="/register-editor">Sign-up as Editor</Link>
           </Message>
+          <Message>
+            Don't you have an account? <Link to="/register-developer">Sign-up as Developer</Link>
+          </Message>
+
         </Grid.Column>
 
       </Grid>

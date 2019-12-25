@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, Container, Divider, Statistic, Form, Button, Icon, Rating, GridColumn} from 'semantic-ui-react';
-import whatsapp from './whatsapp.png';
+import whatsapp from './assets/images/whatsapp.png';
 import ButtonSemantic from './ButtonSemantic.js';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Image from 'react-bootstrap/Image';
@@ -9,28 +9,43 @@ import Carousel from 'react-bootstrap/Carousel';
 import Tab from 'react-bootstrap/Tab';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import w1 from './screenW1.png';
-import w2 from './screenW2.png';
+import w1 from './assets/images/screenW1.png';
+import w2 from './assets/images/screenW2.png';
 import twitter from './assets/images/twitter.jpeg';
 import ins from './assets/images/ins.jpeg';
 import tiktok from './assets/images/tiktok.jpeg';
+import AxiosTest from './AxiosTest';
+import GLOBAL from './global';
 
 
 class ApplicationInformationPage extends React.Component{
 
     state= {
-        showDisplay: 0
+        showDisplay: 0,
+        authenticate: 0,
+        user: null
     };
 
+    componentDidMount(){
+        if(GLOBAL.userG == null){
+            this.setState({
+                authenticate: 0
+            });
+        }else{
+            console.log("User name is: " + GLOBAL.userG.username);
+            this.setState({
+                authenticate: 1,
+                user: GLOBAL.userG
+            });
+        }
+      }
 
     displayer(number) {
         this.setState({
           showDisplay: number
         });
       }
-
-
-
+    
     render(){
 
 
@@ -135,6 +150,15 @@ class ApplicationInformationPage extends React.Component{
 
         );
 
+
+        let requestTest =  (
+            <div>
+                <AxiosTest></AxiosTest>
+            </div>
+
+
+        );
+
         let request = ( <div style={{width: "auto", height:"2500px", backgroundColor:"#f0f0f5"}}>
             
                 <Container style={{width: "auto", height: "220px", backgroundColor: "white", marginTop: "40px"}}>
@@ -188,6 +212,8 @@ class ApplicationInformationPage extends React.Component{
          1)}> Make Request </Button>
          <Button  onClick={this.displayer.bind(this,
          2)}> Make Approvement </Button>
+         <Button  onClick={this.displayer.bind(this,
+         3)}> Send Request </Button>
 
         </ListGroup>
             </div>
@@ -370,11 +396,16 @@ The client application was created by WhatsApp Inc. of Mountain  <br/>View, Cali
 
           if(this.state.showDisplay == 0){
             displayer = applicationInfo;
+            console.log(this.state.user);
           }else if(this.state.showDisplay == 1){
               displayer = request;
           }else if(this.state.showDisplay == 2){
                 displayer = approveRequest;
           }
+          else if(this.state.showDisplay == 3){
+            displayer = requestTest;
+      }
+
 
         return(
             <div>
