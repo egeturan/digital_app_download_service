@@ -1,6 +1,6 @@
 package com.example.demo.components;
 
-public class Developer {
+public class Developer extends User{
     int user_id;
 
     public int getUser_id() {
@@ -11,13 +11,13 @@ public class Developer {
         this.user_id = user_id;
     }
 
-    public String getCompany_name() {
-        return company_name;
+    public String getCompanyname() {
+        return companyname;
     }
 
-    public void setCompany_name(String company_name) {
-        this.company_name = company_name;
+    public void setCompanyname(String companyname) {
+        this.companyname = companyname;
     }
 
-    String company_name;
+    String companyname;
 }

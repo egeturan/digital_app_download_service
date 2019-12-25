@@ -19,12 +19,12 @@ public class User {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String name) {
+        this.username = name;
     }
 
     public String getSurname() {
@@ -36,11 +36,11 @@ public class User {
     }
 
     public String getDATE() {
-        return DATE;
+        return date;
     }
 
     public void setDATE(String DATE) {
-        this.DATE = DATE;
+        this.date = DATE;
     }
 
     public String getEmail() {
@@ -60,9 +60,9 @@ public class User {
     }
 
     String password;
-    String name;
+    String username;
     String surname;
-    String DATE;
+    String date;
     String email;
     int set_id;
 
