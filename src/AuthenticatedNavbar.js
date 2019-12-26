@@ -14,12 +14,26 @@ import {
 } from "react-router-dom";
 
 class NavigationAda extends React.Component {
+
+
+
+ 
+
+  
   
 
   state = {
       authentication: 1,
-      showDisplay: 0
+      showDisplay: 0,
+      info: [
+        {type: "Please Log in"},
+        {type: "Welcome"},
+        {type: "Logged in as: Developer"},
+        {type: "Logged in as: Editor"},
+      ]
   };
+
+  
   
      //Button Message pass
      displaySwitch(number) {
@@ -66,6 +80,7 @@ class NavigationAda extends React.Component {
       </Form>
       <Button variant="light" onClick={this.props.click} style={{width: "150px", height: "50px"}}>Logout</Button>
       <Image src={profile} style={style2} alt='alt' roundedCircle onClick={this.displaySwitch.bind(this, 5)}/>
+    <p style={{ color: 'white' }}>{this.state.info[GLOBAL.typeU].type}</p>
     </Navbar>
     </div>
   );
