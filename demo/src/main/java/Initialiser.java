@@ -1,3 +1,5 @@
+package com.example.demo.services;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -53,6 +55,7 @@ public class Initialiser {
                     +"price INT,"
                     +"text VARCHAR(255),"
                     +"logo VARCHAR(255),"
+                    +"UNIQUE(app_name),"
                     +"PRIMARY KEY (app_id))";
 
             statement.execute(create_application);
@@ -63,9 +66,10 @@ public class Initialiser {
                     +"password VARCHAR(255) NOT NULL,"
                     +"name VARCHAR(255) NOT NULL,"
                     +"surname VARCHAR(255) NOT NULL,"
-                    +"birth_date DATE,"
+                    +"birth_date VARCHAR(255) NOT NULL,"
                     +"email VARCHAR(255) NOT NULL,"
-                    +"set_id INT NOT NULL,"
+                    +"set_id INT,"
+                    +"UNIQUE(name),"
                     +"PRIMARY KEY (user_id))";
 
             statement.execute(create_user);
@@ -315,9 +319,9 @@ public class Initialiser {
 
             statement.execute(create_message);
 
-            String query1 = "ALTER TABLE End_user AUTO_INCREMENT = 1000000;";
-            String query2 = "ALTER TABLE Developer AUTO_INCREMENT = 2000000;";
-            String query3 = "ALTER TABLE Editor AUTO_INCREMENT = 3000000;";
+            String query1 = "ALTER TABLE End_user AUTO_INCREMENT = 10000000;";
+            String query2 = "ALTER TABLE Developer AUTO_INCREMENT = 20000000;";
+            String query3 = "ALTER TABLE Editor AUTO_INCREMENT = 30000000;";
 
             statement.execute(query1);
             statement.execute(query2);
