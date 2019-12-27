@@ -85,7 +85,7 @@ public class QueryService {
 
     }
 
-    public void add_min_req (int user_id,String model_version, String os_version, String CPU, String RAM){
+    public void add_min_req (int app_id,String os_version, String CPU, String RAM){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
         String userName = "root";
@@ -100,24 +100,53 @@ public class QueryService {
             Statement statement = connection.createStatement();
 
 
-            String query1 = "INSERT INTO DEVICE(default,"+
-                    "\"" + model_version + "\""+ ","+
-                    "\"" + os_version+ "\""+ ","+
+            String query1 = "INSERT INTO Minumum_Requirements("+
+                    "\"" + app_id + "\""+ ","+
                     "\"" + CPU + "\""+ ","+
-                    "\"" + RAM + "\""+ ");";
-
-            int device_id = getDeviceNum();
-
-            String query2 = "INSERT INTO Has_device(" + user_id + ","+device_id+ ",);";
+                    "\"" + RAM + "\""+
+                    "\"" + os_version+ "\""+ ","+");";
 
             statement.execute(query1);
-            statement.execute(query2);
+            //statement.execute(query2);
 
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
         }
 
+    }
+
+
+    public MinimumRequirements get_min_req (int app_id){
+
+        String google_con = "jdbc:mysql://35.242.165.113/adastore";
+        String userName = "root";
+        String pass = "CS353FALL19";
+
+        //Application[] owned_app_list
+        MinimumRequirements owned_req = new MinimumRequirements();
+        try {
+
+            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            Statement statement = connection.createStatement();
+
+
+            ResultSet rs = statement.executeQuery("SELECT app_id, CPU, RAM, OS_version FROM  Minumum_Requirements M, Applicaton A " +
+                    "WHERE M.app_id = A.app_id ");
+
+            while(rs.next()){
+                owned_req.setApp_id(rs.getInt("app_id"));
+                owned_req.setCPU(rs.getString("CPU"));
+                owned_req.setRAM(rs.getInt("RAM"));
+                owned_req.setOS_version(rs.getString("OS_version"));
+            }
+            //statement.execute(query2);
+
+        } catch (Exception e) {
+            System.err.println("Error Statement or Connection Failed!");
+            e.printStackTrace();
+        }
+        return owned_req;
     }
 
     public int getDeviceNum() {
