@@ -1,11 +1,9 @@
 import React from 'react';
-import ApplicationInformationPage from './ApplicationInformationPage';
-import { Grid, Container, Divider, Statistic, Form, Button, Icon, Rating, GridColumn} from 'semantic-ui-react';
+import { Grid, Container, Divider, Statistic, Form, Button} from 'semantic-ui-react';
 import NavigationAda from './NavigationAda';
 import HomePage2 from './Homepage2';
 import AuthenticatedNavbar from './AuthenticatedNavbar';
 import GLOBAL from './global';
-
 import DimmerExampleDimmer from './DimmerExampleDimmer';
 import RequestUpload from './RequestUpload';
 import MakeApprovement from './MakeApprovement';

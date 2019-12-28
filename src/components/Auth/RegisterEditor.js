@@ -95,7 +95,7 @@ class RegisterEditor extends React.Component {
         console.log("Global is: " + GLOBAL.userG);
         */
        if(res.data.situation === 1){
-        this.props.history.push("/login");
+        this.props.history.push("/");
       }else{
         this.setState({ errors: [], loading: false });          
       }
