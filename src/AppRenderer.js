@@ -1,9 +1,14 @@
 import React from 'react';
 import ApplicationInformationPage from './ApplicationInformationPage';
+import { Grid, Container, Divider, Statistic, Form, Button, Icon, Rating, GridColumn} from 'semantic-ui-react';
 import NavigationAda from './NavigationAda';
 import HomePage from './Homepage';
 import AuthenticatedNavbar from './AuthenticatedNavbar';
 import GLOBAL from './global';
+import UserHomepage from './UserHomepage';
+import DimmerExampleDimmer from './DimmerExampleDimmer';
+import RequestUpload from './RequestUpload';
+import MakeApprovement from './MakeApprovement';
 
 class AppRenderer extends React.Component{
 
@@ -42,7 +47,6 @@ class AppRenderer extends React.Component{
 
       switchNameHandler = (newName) => {
 
-        console.log("***********");
         alert("Logout Successful");
         GLOBAL.userG = null;
         GLOBAL.typeU = 0;
@@ -52,6 +56,18 @@ class AppRenderer extends React.Component{
             authenticate: 0
         });
         
+      }
+
+      turnBackFromMakeAppoinment = (newName) => {  
+        this.setState({
+            showDisplay: 0
+          });
+      }
+
+      displayer(number) {
+        this.setState({
+          showDisplay: number
+        });
       }
 
 
@@ -65,22 +81,48 @@ class AppRenderer extends React.Component{
                     <div>
                     <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
                     <h1>User Page Will be</h1>
+                    <UserHomepage></UserHomepage>
+                    
                     </div>
                 );
             }else if(GLOBAL.typeU == 2){
+                if(this.state.showDisplay === 1){
+                    render = (
+                        <div>
+                        <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
+                        <RequestUpload></RequestUpload>
+                        </div>
+                    );
+                }else{
                 render = (
                     <div>
                     <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
                     <h1>Developer Page Will be</h1>
+                    <Button  onClick={this.displayer.bind(this,
+         1)} style={{color: "yellow", backgroundColor: "blue"}}> Make Request </Button>
+                    <DimmerExampleDimmer></DimmerExampleDimmer>
                     </div>
                 );
+                    }
             }else if(GLOBAL.typeU == 3){
-                render = (
-                    <div>
-                    <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
-                    <h1>Editor Page Will be</h1>
-                    </div>
-                );
+                if(this.state.showDisplay === 2){
+                    render = (
+                        <div>
+                        <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
+                        <MakeApprovement click={this.turnBackFromMakeAppoinment.bind(this, 'EGE')} ></MakeApprovement>
+                        </div>
+                    );
+                }else{
+                    render = (
+                        <div>
+                        <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
+                        <h1>Editor Page Will be</h1>
+                        <Button  onClick={this.displayer.bind(this,
+         2)} style={{color: "yellow", backgroundColor: "blue"}}> Make Approvement </Button>
+                        </div>
+                    );
+                        }
+        
             }else{
                 render = (
                     <div>
@@ -92,7 +134,7 @@ class AppRenderer extends React.Component{
             render = (
                 <div>
                 <NavigationAda></NavigationAda>
-                <ApplicationInformationPage></ApplicationInformationPage>
+                <h1>Homepage for nonauthentication</h1>
                 </div>
             );
         }

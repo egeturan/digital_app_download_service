@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
-import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import logo from './assets/images/ada-lovelace.jpg';
-import profile from './assets/images/profile.png';
-import Image from 'react-bootstrap/Image';
+
 
 import {
   withRouter
@@ -49,7 +46,7 @@ class NavigationAda extends React.Component {
 
         <Navbar.Brand href="#home" style={{marginLeft: "40px"}}> ADA STORE</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
+          <Nav.Link href="#home" onClick={this.displaySwitch.bind(this, 5)}>Home</Nav.Link>
           <Nav.Link href="#features">Top Applications</Nav.Link>
        
         </Nav>
@@ -74,6 +71,8 @@ class NavigationAda extends React.Component {
       this.props.history.push("/register-editor");
     } else if(this.state.showDisplay == 4){
       this.props.history.push("/register-developer");
+    } else if(this.state.showDisplay == 5){
+      this.props.history.push("/app-information");
     } 
       
       return (

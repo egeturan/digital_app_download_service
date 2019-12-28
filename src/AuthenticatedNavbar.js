@@ -35,7 +35,6 @@ class NavigationAda extends React.Component {
       const style1 = {
           width: '80px',
           height: '80px',
-         
       };
 
       const style2 = {
@@ -56,7 +55,7 @@ class NavigationAda extends React.Component {
 
       <Navbar.Brand href="#home" style={{marginLeft: "40px"}}> ADA STORE</Navbar.Brand>
       <Nav className="mr-auto">
-        <Nav.Link href="#home">Home</Nav.Link>
+        <Nav.Link href="#home" onClick={this.displaySwitch.bind(this, 6)}>Home</Nav.Link>
         <Nav.Link href="#features">Top Applications</Nav.Link>
       </Nav>
 
@@ -88,6 +87,8 @@ class NavigationAda extends React.Component {
       this.props.history.push("/register-developer");
     } else if(this.state.showDisplay == 5){
       this.props.history.push("/profile-page");
+    } else if(this.state.showDisplay == 6){
+      this.props.history.push("/app-information");
     } 
       
       return (

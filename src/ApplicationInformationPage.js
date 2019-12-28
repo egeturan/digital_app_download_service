@@ -16,6 +16,7 @@ import ins from './assets/images/ins.jpeg';
 import tiktok from './assets/images/tiktok.jpeg';
 import AxiosTest from './AxiosTest';
 import GLOBAL from './global';
+import RequestUpload from './RequestUpload';
 
 
 class ApplicationInformationPage extends React.Component{
@@ -72,83 +73,7 @@ class ApplicationInformationPage extends React.Component{
         );
 
 
-        let approveRequest = (
-            <div style={{width: "auto", height:"2500px", backgroundColor:"#f0f0f5"}}>
-                <Divider></Divider>
-                <div textAlign="left" style={{overflowX : 'auto', fontSize: '20px', right: "0px", position: "fixed", alignSelf: "flex-end", width:"200px", height:"100px", top:"180px", borderStyle: "solid"}}>
-                  Editor Profile
-                  <br/> Name : Ahmet Yılmaz
-                    </div>
-                
-                <Container textAlign="center">
-                <h1>Recent Requests</h1>
-                <Divider/>
-                <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
-                <Row>
-                    <Col sm={4}>
-                    <ListGroup>
-                        <ListGroup.Item action href="#link1">
-                        Request 1
-                        </ListGroup.Item>
-                        <ListGroup.Item action href="#link2">
-                        Request 2
-                        </ListGroup.Item>
-                        <ListGroup.Item action href="#link3">
-                        Request 3
-                        </ListGroup.Item>
-                        <ListGroup.Item action href="#link4">
-                        Request 4
-                        </ListGroup.Item>
-                        <ListGroup.Item action href="#link5">
-                        Request 5
-                        </ListGroup.Item>
-                        <ListGroup.Item action href="#link6">
-                        Request 6
-                        </ListGroup.Item>
-                    </ListGroup>
-                    </Col>
-                    <Col sm={8}>
-                    <Tab.Content>
-                        <Tab.Pane eventKey="#link1">
-                            <Container textAlign="left">
-                            <p> <strong> App name is: HeadBasket
-                                <br/>
-                                Developer name is: EGE TURAN
-                                <br/>
-                                Developer Company is: ADACORP 
-                                <br/>
-                            Version is: 2.3
-                            <br/>
-                            Price is: 50TL
-                            </strong>
-                            </p>
-                        <Button color="green">Approve Request</Button>
-                        <Button color="red">Reject Request</Button>
-                        </Container>
-                        </Tab.Pane>
-                        <Tab.Pane eventKey="#link2">
-                        EGE TURAN 2
-                        </Tab.Pane>
-                        <Tab.Pane eventKey="#link3">
-                        EGE TURAN 3
-                        </Tab.Pane>
-                        <Tab.Pane eventKey="#link4">
-                        EGE TURAN 4 
-                        </Tab.Pane>
-                        <Tab.Pane eventKey="#link5">
-                        EGE TURAN 5 
-                        </Tab.Pane>
-                        <Tab.Pane eventKey="#link6">
-                        EGE TURAN 6
-                        </Tab.Pane>
-                    </Tab.Content>
-                    </Col>
-                </Row>
-                </Tab.Container>
-                </Container>
-            </div>
-
-        );
+        
 
 
         let requestTest =  (
@@ -159,40 +84,6 @@ class ApplicationInformationPage extends React.Component{
 
         );
 
-        let request = ( <div style={{width: "auto", height:"2500px", backgroundColor:"#f0f0f5"}}>
-            
-                <Container style={{width: "auto", height: "220px", backgroundColor: "white", marginTop: "40px"}}>
-                <h1>App to Add</h1>
-                <Divider/>
-                <h4>Please hold and drag your app into box above </h4>
-                <div style={{width: "auto", height: "100px", borderStyle: "solid", borderColor: "blue", backgroundColor:"#f0f0f5"}}>
-                Add your app that you want to serve on ADA STORE<Icon name="download" size='huge' style={{marginTop: "20px"}}/>
-                
-                </div>
-                </Container>
-
-                <Container style={{width: "auto", height: "200px", backgroundColor: "white", marginTop: "30px"}}>
-                <h1>Release Name</h1>
-                <Divider/>
-                <h4> Enter App Name, Release Version, and Price  Below </h4>
-                <Form>
-                    <Form.Group unstackable widths={1}>
-                    <Form.Input label='AppName' placeholder='App Name' />
-                    <Form.Input label='ReleaseVersion' placeholder='Version' />
-                    <Form.Input label='Price' placeholder='price' />
-                    </Form.Group>
-                </Form>
-
-                </Container>
-
-                <Container style={{width: "auto", height: "100px", backgroundColor: "white", marginTop: "20px"}}>
-                <Form.Checkbox label='I agree to the Terms and Conditions' style={{width: "auto", marginTop: "10px"}} />
-                <Button color="blue">SUBMIT YOUR REQUEST</Button>
-                </Container>
-        </div>
-
-        );
-        
         let applicationInfo = (
 
         <div style={{width: "auto", height:"2500px", backgroundColor:"#f0f0f5"}}> 
@@ -208,10 +99,8 @@ class ApplicationInformationPage extends React.Component{
         <Divider/>
         <ListGroup.Item>Profile</ListGroup.Item>
         <ListGroup.Item>Settings</ListGroup.Item>
-        <Button  onClick={this.displayer.bind(this,
-         1)}> Make Request </Button>
-         <Button  onClick={this.displayer.bind(this,
-         2)}> Make Approvement </Button>
+    
+       
          <Button  onClick={this.displayer.bind(this,
          3)}> Send Request </Button>
 
@@ -397,10 +286,6 @@ The client application was created by WhatsApp Inc. of Mountain  <br/>View, Cali
           if(this.state.showDisplay == 0){
             displayer = applicationInfo;
             console.log(this.state.user);
-          }else if(this.state.showDisplay == 1){
-              displayer = request;
-          }else if(this.state.showDisplay == 2){
-                displayer = approveRequest;
           }
           else if(this.state.showDisplay == 3){
             displayer = requestTest;
