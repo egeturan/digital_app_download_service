@@ -1,12 +1,12 @@
 import React from 'react';
-import { Container, Divider, Form, Button, Icon } from 'semantic-ui-react';
+import { Container, Divider, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import GLOBAL from './global';
 import Tab from 'react-bootstrap/Tab';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class MakeApprovement extends React.Component{
     state = {

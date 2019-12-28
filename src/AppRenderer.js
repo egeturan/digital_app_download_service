@@ -2,13 +2,14 @@ import React from 'react';
 import ApplicationInformationPage from './ApplicationInformationPage';
 import { Grid, Container, Divider, Statistic, Form, Button, Icon, Rating, GridColumn} from 'semantic-ui-react';
 import NavigationAda from './NavigationAda';
-import HomePage from './Homepage';
+import HomePage2 from './Homepage2';
 import AuthenticatedNavbar from './AuthenticatedNavbar';
 import GLOBAL from './global';
-import UserHomepage from './UserHomepage';
+
 import DimmerExampleDimmer from './DimmerExampleDimmer';
 import RequestUpload from './RequestUpload';
 import MakeApprovement from './MakeApprovement';
+import EditorSidebar from './EditorSidebar';
 
 class AppRenderer extends React.Component{
 
@@ -81,7 +82,8 @@ class AppRenderer extends React.Component{
                     <div>
                     <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
                     <h1>User Page Will be</h1>
-                    <UserHomepage></UserHomepage>
+                    <HomePage2></HomePage2>
+                 
                     
                     </div>
                 );
@@ -110,6 +112,8 @@ class AppRenderer extends React.Component{
                         <div>
                         <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
                         <MakeApprovement click={this.turnBackFromMakeAppoinment.bind(this, 'EGE')} ></MakeApprovement>
+                        <HomePage2></HomePage2>
+                 
                         </div>
                     );
                 }else{
@@ -117,6 +121,19 @@ class AppRenderer extends React.Component{
                         <div>
                         <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
                         <h1>Editor Page Will be</h1>
+                        <Grid>
+
+    <Grid.Column style={{}}>
+    
+        <EditorSidebar></EditorSidebar>              
+    </Grid.Column>
+
+    <Grid.Column style={{width: "auto", marginLeft: "260px"}}>
+    <HomePage2></HomePage2>
+    </Grid.Column>
+    </Grid>
+
+                   
                         <Button  onClick={this.displayer.bind(this,
          2)} style={{color: "yellow", backgroundColor: "blue"}}> Make Approvement </Button>
                         </div>
@@ -135,6 +152,8 @@ class AppRenderer extends React.Component{
                 <div>
                 <NavigationAda></NavigationAda>
                 <h1>Homepage for nonauthentication</h1>
+                <HomePage2></HomePage2>
+                 
                 </div>
             );
         }
