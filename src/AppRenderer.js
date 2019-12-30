@@ -9,7 +9,7 @@ import GLOBAL from './global';
 import DimmerExampleDimmer from './DimmerExampleDimmer';
 import RequestUpload from './RequestUpload';
 import MakeApprovement from './MakeApprovement';
-import EditorSidebar from './EditorSidebar';
+import EditorHomepage from './EditorHomepage';
 
 class AppRenderer extends React.Component{
 
@@ -123,15 +123,15 @@ class AppRenderer extends React.Component{
                         <h1>Editor Page Will be</h1>
                         <Grid>
 
-    <Grid.Column style={{}}>
+                        <Grid.Column style={{}}>
     
-        <EditorSidebar></EditorSidebar>              
-    </Grid.Column>
+                        <EditorHomepage></EditorHomepage>
+                        </Grid.Column>
 
-    <Grid.Column style={{width: "auto", marginLeft: "260px"}}>
-    <HomePage2></HomePage2>
-    </Grid.Column>
-    </Grid>
+                        <Grid.Column style={{width: "auto", marginLeft: "260px"}}>
+                        <HomePage2></HomePage2>
+                        </Grid.Column>
+                        </Grid>
 
                    
                         <Button  onClick={this.displayer.bind(this,
@@ -149,11 +149,10 @@ class AppRenderer extends React.Component{
             } 
         }else{
             render = (
+
                 <div>
                 <NavigationAda></NavigationAda>
                 <h1>Homepage for nonauthentication</h1>
-                <HomePage2></HomePage2>
-                 
                 </div>
             );
         }
