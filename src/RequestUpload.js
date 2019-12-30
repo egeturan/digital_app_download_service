@@ -12,8 +12,10 @@ class RequestUpload extends React.Component{
         typeU: 0,
         app_name: "",
         price: "",
-        explanation: ""
-
+        explanation: "",
+        ram: "",
+        cpu: "",
+        os_version: ""
     }
 
     componentDidMount(){
@@ -32,7 +34,7 @@ class RequestUpload extends React.Component{
     isFormEmpty(){
         let result =  this.state.app_name.length &&
         this.state.price.length &&
-        this.state.explanation.length;
+        this.state.explanation.length && this.state.ram.length && this.state.cpu.length && this.state.os_version.length;
         console.log("Result is: " + result);
         return result;
       };
@@ -57,6 +59,9 @@ class RequestUpload extends React.Component{
            //int editor_id, int developer_id, String app_name, String publishing_date, int price, String text, String logo)
 
           const user = {
+            ram: this.state.ram,
+            cpu: this.state.cpu,
+            os_version: this.state.os_version,
             editor_id: this.state.showDisplay,
             developer_id: uID.user_id,
             app_name: this.state.app_name,
@@ -66,20 +71,20 @@ class RequestUpload extends React.Component{
             logo: null
           };
 
+          console.log(this.state.ram + " " + this.state.cpu + " " + this.state.os_version);
+
+
    axios.post(`http://localhost:8080/upload_request_app/`, user )
       .then(res => {
         console.log(res);
-
-       if(res.data.situation === 1){
-        this.props.history.push("/home-page");
-      }else{
-       
-      }
-       
+        alert("Request is sent successfully");
         
       })
+
+
       console.log(user);
-    
+
+
         }
         
       };
@@ -103,7 +108,10 @@ class RequestUpload extends React.Component{
         const {
             app_name,
             price,
-            explanation
+            explanation,
+            ram,
+            cpu,
+            os_version
           } = this.state;
 
         let selected = null;
@@ -153,10 +161,14 @@ class RequestUpload extends React.Component{
                 <Form.Input name="app_name" placeholder='app_name' onChange={this.handleChange} value={app_name} type="text"/>
                 <Form.Input name="price" placeholder='price' onChange={this.handleChange} value={price} type="text"/>
                 <Form.Input name="explanation" placeholder='explanation' onChange={this.handleChange} value={explanation} type="text"/>
+                <Form.Input name="os_version" placeholder='os_version' onChange={this.handleChange} value={os_version} type="text"/>
+                <Form.Input name="cpu" placeholder='cpu' onChange={this.handleChange} value={cpu} type="text"/>
+                <Form.Input name="ram" placeholder='ram' onChange={this.handleChange} value={ram} type="text"/>
                 </Form.Group>
                 <Container style={{width: "auto", height: "100px", backgroundColor: "white", marginTop: "20px"}}>
             <Form.Checkbox label='I agree to the Terms and Conditions' style={{width: "auto", marginTop: "10px"}} />
             <Button color="blue">SUBMIT YOUR REQUEST</Button>
+            <Button onClick={this.props.click}> Turn Back To Home page</Button>
             </Container>
             </Form>
             </Container>
@@ -168,5 +180,4 @@ class RequestUpload extends React.Component{
     };
 }
 
-
-export default RequestUpload;
+export default withRouter(RequestUpload);

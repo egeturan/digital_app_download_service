@@ -1,13 +1,14 @@
 package com.example.demo.components;
 
-public class Application {
-
-    private int app_id;
-    private String app_name;
-    private String DATE;
-    private int price;
-    private String text;
-    private String logo;
+public class View {
+    int app_id;
+    String app_name;
+    String DATE;
+    int price;
+    String text;
+    String logo;
+    Double point;
+    int download;
 
 
     public int getApp_id() {
@@ -58,5 +59,20 @@ public class Application {
         this.logo = logo;
     }
 
+    public double getPoint() {
+        return point;
+    }
+
+    public void setPoint(double point) {
+        this.point = point;
+    }
+
+    public double getDownload() {
+        return download;
+    }
+
+    public void setDownload(int download) {
+        this.download = download;
+    }
 
 }

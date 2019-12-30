@@ -36,12 +36,21 @@ class HomePage2 extends React.Component {
     return (
       
       <div style={{ backgroundColor: '#A1ADB7'}}>
-     
+        <div>
+         
+        </div>
         
 
 
         <div>
+<Grid>
 
+    <Grid.Column style={{}}>
+    
+
+    </Grid.Column>
+
+    <Grid.Column style={{width: "auto", marginLeft: "260px"}}>
 
         <Container textAlign="left" style={{width: "1000px", height:"500px", backgroundColor:'white', marginTop:"10px", marginLeft:"50px"}}>
         <Row className="justify-content-md-center">
@@ -90,6 +99,7 @@ class HomePage2 extends React.Component {
               </Card.Body>
           </Card>
         </Col>
+        
         </Row>
         </Container>
         <div style={{width: "10px", height:"10px", backgroundColor:'#A1ADB7'}}></div>
@@ -144,7 +154,10 @@ class HomePage2 extends React.Component {
         </Row>
         </Container>
 
-  
+        </Grid.Column>
+
+        </Grid>
+      
         </div>
         
 

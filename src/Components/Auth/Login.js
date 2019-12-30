@@ -82,7 +82,7 @@ class Login extends React.Component {
 
 //go to register with router
   changeToMainPage(num) {
-    this.props.history.push("/home-page");
+    this.props.history.push("/");
   }
 
   changeToRegister(num){
@@ -102,7 +102,7 @@ class Login extends React.Component {
   }
 
   goToMainPage(num){
-    this.props.history.push("/home-page");
+    this.props.history.push("/");
   }
 
   render() {

@@ -27,16 +27,18 @@ public class Comment {
         this.app_id = app_id;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 
     int user_id;
     int app_id;
-    String content;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    String text;
 
 }

@@ -43,6 +43,22 @@ public class Device {
         this.CPU = CPU;
     }
 
+
+    private int user_id;
+    private String model_version;
+    private String os_version;
+    private String CPU;
+
+    public String getApp_name() {
+        return app_name;
+    }
+
+    public void setApp_name(String app_name) {
+        this.app_name = app_name;
+    }
+
+    private String app_name;
+
     public int getRAM() {
         return RAM;
     }
@@ -51,10 +67,6 @@ public class Device {
         this.RAM = RAM;
     }
 
-    int user_id;
-    String model_version;
-    String os_version;
-    String CPU;
-    int RAM;
+    private int RAM;
 
 }

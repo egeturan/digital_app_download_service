@@ -2,6 +2,32 @@ package com.example.demo.components;
 
 public class UploadRequestApp {
     int editor_id;
+    String os_version;
+
+    public String getCpu() {
+        return cpu;
+    }
+
+    public void setCpu(String cpu) {
+        this.cpu = cpu;
+    }
+
+    public String getRam() {
+        return ram;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
+    }
+
+    private String cpu;
+    private String ram;
+    private int developer_id;
+    private String app_name;
+    private String publishing_date;
+    private int price;
+    private String text;
+    private String logo;
 
     public int getEditor_id() {
         return editor_id;
@@ -58,11 +84,25 @@ public class UploadRequestApp {
     public void setLogo(String logo) {
         this.logo = logo;
     }
+    //add_min_req (
+    int app_id;
 
-    int developer_id;
-    String app_name;
-    String publishing_date;
-    int price;
-    String text;
-    String logo;
+    public int getApp_id() {
+        return app_id;
+    }
+
+    public void setApp_id(int app_id) {
+        this.app_id = app_id;
+    }
+
+    public String getOs_version() {
+        return os_version;
+    }
+
+    public void setOs_version(String os_version) {
+        this.os_version = os_version;
+    }
+
+
+
 }
