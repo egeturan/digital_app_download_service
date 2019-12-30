@@ -4,10 +4,17 @@ import NavigationAda from './NavigationAda';
 import HomePage2 from './Homepage2';
 import AuthenticatedNavbar from './AuthenticatedNavbar';
 import GLOBAL from './global';
-import DimmerExampleDimmer from './DimmerExampleDimmer';
 import RequestUpload from './RequestUpload';
 import MakeApprovement from './MakeApprovement';
 import EditorSidebar from './EditorSidebar';
+import RateApp from './axios/RateApp';
+import GetAppInformation from './axios/GetAppInformation';
+import GetMinReq from './axios/GetMinReq';
+import GetAppsOnSale from './axios/GetAppsOnSale';
+import GetRateApp from './axios/GetRateApp';
+import ApproveRequest from './axios/ApproveRequest';
+import AddAppWishList from './axios/AddAppWishList';
+import GetWishList from './axios/GetWishList';
 
 class AppRenderer extends React.Component{
 
@@ -73,6 +80,7 @@ class AppRenderer extends React.Component{
     render(){
 
         let render = null;
+        const greeting = 'Hello Function Component!';
 
         if(this.state.authenticate == 1){
             if(GLOBAL.typeU == 1){
@@ -90,7 +98,7 @@ class AppRenderer extends React.Component{
                     render = (
                         <div>
                         <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
-                        <RequestUpload></RequestUpload>
+                        <RequestUpload click={this.turnBackFromMakeAppoinment.bind(this, 'EGE')}></RequestUpload>
                         </div>
                     );
                 }else{
@@ -100,7 +108,9 @@ class AppRenderer extends React.Component{
                     <h1>Developer Page Will be</h1>
                     <Button  onClick={this.displayer.bind(this,
          1)} style={{color: "yellow", backgroundColor: "blue"}}> Make Request </Button>
-                    <DimmerExampleDimmer></DimmerExampleDimmer>
+                    <HomePage2></HomePage2>
+                
+
                     </div>
                 );
                     }
@@ -150,8 +160,18 @@ class AppRenderer extends React.Component{
                 <div>
                 <NavigationAda></NavigationAda>
                 <h1>Homepage for nonauthentication</h1>
+           {/* <RateApp user_id={"10000000"} rate={4.0} app_name={"instagram"} value={greeting}/> */}     
+            {/*  <GetAppInformation app_name={"instagram"}/>*/}    
+            {/*  <GetMinReq app_id={30}/>*/}  
+              {/*   <GetAppsOnSale/> */}  
+             {/*   <GetRateApp app_name={"instagram"}/> */} 
+               {/*           <ApproveRequest editor_id={30000001} app_id={30}/> */}   
+                 {/*            <AddAppWishList user_id={20000000} app_name={"instagram"}/> */} 
+                    {/*          <GetWishList user_id={"10000001"}/> */} 
+                    <GetWishList user_id={"10000001"}/>
+
                 <HomePage2></HomePage2>
-                 
+             
                 </div>
             );
         }

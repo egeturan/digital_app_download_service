@@ -1,9 +1,18 @@
 package com.example.demo.components;
 
 public class Rate {
-    int user_id;
-    int app_id;
-    double point;
+    private int user_id;
+    private String app_name;
+    private double rate;
+
+    public String getApp_name() {
+        return app_name;
+    }
+
+    public void setApp_name(String app_name) {
+        this.app_name = app_name;
+    }
+
 
     public int getUser_id() {
         return user_id;
@@ -13,21 +22,16 @@ public class Rate {
         this.user_id = user_id;
     }
 
-    public int getApp_id() {
-        return app_id;
+    public double getRate() {
+        return rate;
     }
 
-    public void setApp_id(int app_id) {
-        this.app_id = app_id;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
-    public double getPoint() {
-        return point;
-    }
 
-    public void setPoint(double point) {
-        this.point = point;
-    }
+
 
 
 

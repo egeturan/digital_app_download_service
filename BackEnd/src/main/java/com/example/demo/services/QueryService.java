@@ -2,6 +2,10 @@ package com.example.demo.services;
 import com.example.demo.components.*;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +15,141 @@ public class QueryService {
     int developer_num;
     int editor_num;
     /// General purpose
+    //DONE
+    public List<View> get_app_download_rate_views(){
 
+        String google_con = "jdbc:mysql://35.242.165.113/adastore";
+        String userName = "root";
+        String pass = "CS353FALL19";
+
+        //Application[] owned_app_list
+
+        List<View> owned_apps = new ArrayList<View>();
+        try {
+
+            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            Statement statement = connection.createStatement();
+
+
+            //String query1 = "CREATE VIEW view AS SELECT A.app_id, app_name,publishing_date,price,text,logo,AVG(R.point) AS average, SUM(D.count) AS download FROM Application A NATURAL JOIN Download D, Rate R WHERE " +
+            //      " A.app_id = D.app_id AND A.app_id = R.app_id " +
+            //    " GROUP BY A.app_id;";
+            //String query1 = "CREATE VIEW view AS SELECT * FROM view3 UNION view2;";
+            //statement.execute(query1);
+
+            ResultSet rs = statement.executeQuery( "SELECT * FROM view");
+
+
+            while (rs.next()) {
+                View owned_app = new View();
+                owned_app.setApp_id(rs.getInt("app_id"));
+                owned_app.setApp_name(rs.getString("app_name"));
+                owned_app.setDATE(rs.getString("publishing_date"));
+                owned_app.setPrice(rs.getInt("price"));
+                owned_app.setText(rs.getString("text"));
+                owned_app.setLogo(rs.getString("logo"));
+                owned_app.setPoint(rs.getDouble("average"));
+                owned_app.setDownload(rs.getInt("download"));
+                owned_apps.add(owned_app);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error Statement or Connection Failed!");
+            e.printStackTrace();
+        }
+
+        return owned_apps;
+    }
+
+    //DONE
+    public List<View> get_app_rate_views(){
+
+        String google_con = "jdbc:mysql://35.242.165.113/adastore";
+        String userName = "root";
+        String pass = "CS353FALL19";
+
+        //Application[] owned_app_list
+
+        List<View> owned_apps = new ArrayList<View>();
+        try {
+
+            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            Statement statement = connection.createStatement();
+
+
+            //String query1 = "CREATE VIEW view2 AS SELECT A.app_id, app_name,publishing_date,price,text,logo,AVG(R.point) AS average FROM Application A NATURAL JOIN Rate R WHERE " +
+            //    "A.app_id = R.app_id " +
+            //" GROUP BY A.app_id;";
+            //statement.execute(query1);
+
+            ResultSet rs = statement.executeQuery( "SELECT * FROM view2");
+
+
+            while (rs.next()) {
+                View owned_app = new View();
+                owned_app.setApp_id(rs.getInt("app_id"));
+                owned_app.setApp_name(rs.getString("app_name"));
+                owned_app.setDATE(rs.getString("publishing_date"));
+                owned_app.setPrice(rs.getInt("price"));
+                owned_app.setText(rs.getString("text"));
+                owned_app.setLogo(rs.getString("logo"));
+                owned_app.setPoint(rs.getDouble("average"));
+                //owned_app.setDownload(rs.getInt("download"));
+                owned_apps.add(owned_app);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error Statement or Connection Failed!");
+            e.printStackTrace();
+        }
+
+        return owned_apps;
+    }
+    //DONE
+    public List<View> get_app_download_views(){
+
+        String google_con = "jdbc:mysql://35.242.165.113/adastore";
+        String userName = "root";
+        String pass = "CS353FALL19";
+
+        //Application[] owned_app_list
+
+        List<View> owned_apps = new ArrayList<View>();
+        try {
+
+            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            Statement statement = connection.createStatement();
+
+
+            //String query1 = "CREATE VIEW view3 AS SELECT A.app_id, app_name,publishing_date,price,text,logo,SUM(D.count) AS download FROM Application A NATURAL JOIN Download D WHERE " +
+            //  "A.app_id = D.app_id " +
+            //" GROUP BY A.app_id;";
+            //statement.execute(query1);
+
+            ResultSet rs = statement.executeQuery( "SELECT * FROM view3");
+
+
+            while (rs.next()) {
+                View owned_app = new View();
+                owned_app.setApp_id(rs.getInt("app_id"));
+                owned_app.setApp_name(rs.getString("app_name"));
+                owned_app.setDATE(rs.getString("publishing_date"));
+                owned_app.setPrice(rs.getInt("price"));
+                owned_app.setText(rs.getString("text"));
+                owned_app.setLogo(rs.getString("logo"));
+                //owned_app.setPoint(rs.getDouble("average"));
+                owned_app.setDownload(rs.getInt("download"));
+                owned_apps.add(owned_app);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error Statement or Connection Failed!");
+            e.printStackTrace();
+        }
+
+        return owned_apps;
+    }
+    //DONE
     public List<Application> get_approved_applications(){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -26,7 +164,7 @@ public class QueryService {
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishin_date,price,text,logo FROM Application A, Request_Publish R WHERE " +
+            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R WHERE " +
                     "R.app_id = A.app_id AND R.approvement = 1"  );
 
 
@@ -49,7 +187,78 @@ public class QueryService {
         return owned_apps;
 
     }
+    //DONE
+    public List<Application> get_price_ranged_applications(int lowwer_price,int upper_price){
 
+        String google_con = "jdbc:mysql://35.242.165.113/adastore";
+        String userName = "root";
+        String pass = "CS353FALL19";
+
+        //Application[] owned_app_list
+
+        List<Application> owned_apps = new ArrayList<Application>();
+        try {
+
+            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            Statement statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R WHERE " +
+                    "R.app_id = A.app_id AND R.approvement = 1 AND price >= "+lowwer_price+" AND price <= "+ upper_price  );
+
+
+            while (rs.next()) {
+                Application owned_app = new Application();
+                owned_app.setApp_id(rs.getInt("app_id"));
+                owned_app.setApp_name(rs.getString("app_name"));
+                owned_app.setDATE(rs.getString("publishing_date"));
+                owned_app.setPrice(rs.getInt("price"));
+                owned_app.setText(rs.getString("text"));
+                owned_app.setLogo(rs.getString("logo"));
+                owned_apps.add(owned_app);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error Statement or Connection Failed!");
+            e.printStackTrace();
+        }
+
+        return owned_apps;
+
+    }
+
+    //DONE
+    public Device get_Device(int device_id){
+
+        String google_con = "jdbc:mysql://35.242.165.113/adastore";
+        String userName = "root";
+        String pass = "CS353FALL19";
+
+        //Application[] owned_app_list
+        Device owned_device = new Device();
+        //List<Device> owned_devices = new ArrayList<Device>();
+        try {
+
+            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            Statement statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery("SELECT* FROM Device WHERE device_id= "+device_id);
+
+            while(rs.next()){
+                owned_device.setDevice_id(rs.getInt("device_id"));
+                owned_device.setModel_version(rs.getString("model_version"));
+                owned_device.setOs_version(rs.getString("os_version"));
+                owned_device.setCPU(rs.getString("CPU"));
+                owned_device.setRAM(rs.getInt("RAM"));
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error Statement or Connection Failed!");
+            e.printStackTrace();
+        }
+        return owned_device;
+
+    }
+    //DONE
     public void add_devices(int user_id,String model_version, String os_version, String CPU, String RAM){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -65,17 +274,20 @@ public class QueryService {
             Statement statement = connection.createStatement();
 
 
-            String query1 = "INSERT INTO DEVICE(default,"+
+            String query1 = "INSERT INTO Device VALUES(default,"+
                     "\"" + model_version + "\""+ ","+
                     "\"" + os_version+ "\""+ ","+
                     "\"" + CPU + "\""+ ","+
                     "\"" + RAM + "\""+ ");";
 
-            int device_id = getDeviceNum();
-
-            String query2 = "INSERT INTO Has_device(" + user_id + ","+device_id+ ",);";
 
             statement.execute(query1);
+            int device_id = getDeviceNum();
+
+            String query2 = "INSERT INTO Has_device VALUES(" + user_id + ","+device_id+ ");";
+
+
+
             statement.execute(query2);
 
         } catch (Exception e) {
@@ -84,12 +296,13 @@ public class QueryService {
         }
 
     }
-
-    public void add_min_req (int app_id,String os_version, String CPU, String RAM){
+    //DONE
+    public void add_min_req (int app_id,String os_version, int RAM, String CPU){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
         String userName = "root";
         String pass = "CS353FALL19";
+        MinimumRequirements req = get_min_req(app_id);
 
         //Application[] owned_app_list
         Device owned_device = new Device();
@@ -100,11 +313,11 @@ public class QueryService {
             Statement statement = connection.createStatement();
 
 
-            String query1 = "INSERT INTO Minumum_Requirements("+
-                    "\"" + app_id + "\""+ ","+
-                    "\"" + CPU + "\""+ ","+
-                    "\"" + RAM + "\""+
-                    "\"" + os_version+ "\""+ ","+");";
+            String query1 = "INSERT INTO Minimum_requirements VALUES(" +
+                    app_id + "," +
+                    RAM + "," +
+                    "\"" + CPU + "\"" + "," +
+                    "\"" + os_version + "\"" + ");";
 
             statement.execute(query1);
             //statement.execute(query2);
@@ -113,10 +326,10 @@ public class QueryService {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
         }
-
     }
 
 
+    //DONE
     public MinimumRequirements get_min_req (int app_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -131,8 +344,7 @@ public class QueryService {
             Statement statement = connection.createStatement();
 
 
-            ResultSet rs = statement.executeQuery("SELECT app_id, CPU, RAM, OS_version FROM  Minumum_Requirements M, Applicaton A " +
-                    "WHERE M.app_id = A.app_id ");
+            ResultSet rs = statement.executeQuery("SELECT app_id, CPU, RAM, OS_version FROM  Minimum_requirements M NATURAL JOIN Application A WHERE app_id ="+ app_id);
 
             while(rs.next()){
                 owned_req.setApp_id(rs.getInt("app_id"));
@@ -148,7 +360,7 @@ public class QueryService {
         }
         return owned_req;
     }
-
+    //DONE
     public int getDeviceNum() {
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -163,7 +375,7 @@ public class QueryService {
             String query = "SELECT* FROM Device";
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
-                counter++;
+                counter = rs.getInt("device_id");
             }
 
         } catch (Exception e) {
@@ -174,6 +386,7 @@ public class QueryService {
     }
 
     //// Registiration and login page queries.
+    //DONE
     public int getEndUserNum() {
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -198,7 +411,7 @@ public class QueryService {
         return 10000000 + counter;
     }
 
-
+    //DONE
     public int getDeveloperNum() {
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -223,7 +436,7 @@ public class QueryService {
         return 20000000 + counter;
     }
 
-
+    //DONE
     public int getEditorNum() {
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -248,7 +461,7 @@ public class QueryService {
         return 30000000 + counter;
     }
 
-
+    //DONE
     public User registiration_end_user(String name, String surname, String birth_date, String email, String password) {
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
         String user_name = "root";
@@ -274,7 +487,7 @@ public class QueryService {
                     user_id + ", " + " \"" + password + "\" " + ", " + " \"" + name + "\"" + " , " + "\"" + surname + "\"" + " , " + "\"" + birth_date + "\"" + " , " + "\"" + email + "\"" + " , " + set_id + " );";
 
 
-            String query2 = "INSERT INTO End_user VALUES();";
+            String query2 = "INSERT INTO End_user VALUES(default);";
             //ystem.out.println(defaultQ + " \n");
             //ResultSet rs = statement.executeQuery(query1);
             statement.execute(query1);
@@ -287,7 +500,7 @@ public class QueryService {
 
         return new_user;
     }
-
+    //DONE
     public User registiration_developer(String name, String surname, String birth_date, String email, String password, String company_name) {
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
         String user_name = "root";
@@ -323,7 +536,7 @@ public class QueryService {
         return new_user;
     }
 
-
+    //DONE
     public User registiration_editor(String name, String surname, String birth_date, String email, String password, int salary) {
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
         String user_name = "root";
@@ -358,7 +571,7 @@ public class QueryService {
         return new_user;
     }
 
-
+    //DONE
     public User loginQuery(String user_name, String password) {
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -395,7 +608,7 @@ public class QueryService {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Profile info page queries
-
+    //DONE
     public List<Application> get_owned_applications(int user_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -410,9 +623,7 @@ public class QueryService {
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishin_date,price,text,logo FROM Download D, Application A, Request_Publish R WHERE user_id in(SELECT user_id" +
-                    " FROM User U"+
-                    " WHERE "+ "\""+user_id+"\""+ "= U.user_id) AND D.app_id = A.app_id"+" AND R.approvement=1 AND R.app_id = A.app_id" );
+            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Download D NATURAL JOIN Application WHERE user_id = "+user_id );
 
 
             while (rs.next()) {
@@ -435,7 +646,7 @@ public class QueryService {
 
     }
 
-
+    //WAITING
     public List<Movie> get_owned_movies(int  user_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -473,7 +684,7 @@ public class QueryService {
         return owned_movies;
     }
 
-
+    //WAITING
     public List<Book> get_owned_books(int user_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -509,7 +720,7 @@ public class QueryService {
 
         return owned_books;
     }
-
+    //DONE
     public List<Device> get_owned_devices(int user_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -524,8 +735,7 @@ public class QueryService {
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery("SELECT device_id,model_version,os_version,CPU,RAM FROM Has_device H, User U WHERE H.user_id =+"+user_id+"AND U.user_id ="
-                    +user_id );
+            ResultSet rs = statement.executeQuery("SELECT device_id,model_version,os_version,CPU,RAM FROM Has_device H NATURAL JOIN Device WHERE H.user_id = "+user_id );
 
 
             while (rs.next()) {
@@ -546,7 +756,7 @@ public class QueryService {
 
         return owned_devices;
     }
-
+    //WAITING
     public void make_comment(int user_id, int app_id, String text){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -576,7 +786,7 @@ public class QueryService {
             e.printStackTrace();
         }
     }
-
+    //WAITING
     public List<Comment> get_apps_comments(int app_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -600,7 +810,7 @@ public class QueryService {
                 owned_comment.setComment_id(rs.getInt("comment_id"));
                 owned_comment.setUser_id(rs.getInt("user_id"));
                 owned_comment.setApp_id(rs.getInt("app_id"));
-                owned_comment.setContent(rs.getString("content"));
+                owned_comment.setText(rs.getString("content"));
 
 
                 owned_comments.add(owned_comment);
@@ -613,7 +823,7 @@ public class QueryService {
 
         return owned_comments;
     }
-
+    //WAITING
     public List<Comment> get_owned_comments(int user_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -636,7 +846,7 @@ public class QueryService {
                 owned_comment.setComment_id(rs.getInt("comment_id"));
                 owned_comment.setUser_id(rs.getInt("user_id"));
                 owned_comment.setApp_id(rs.getInt("app_id"));
-                owned_comment.setContent(rs.getString("content"));
+                owned_comment.setText(rs.getString("content"));
 
 
                 owned_comments.add(owned_comment);
@@ -650,7 +860,7 @@ public class QueryService {
         return owned_comments;
     }
 
-
+    // WAITING
     public List<Payment_method> get_owned_payments(int user_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -688,7 +898,7 @@ public class QueryService {
         return owned_payment_methods;
     }
 
-
+    //WAITING
     public Settings get_owned_settings(int user_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -726,7 +936,7 @@ public class QueryService {
 
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+    // WAITING
     public List<Application> get_best_selling_applications(){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -741,7 +951,7 @@ public class QueryService {
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo count FROM Download D, Application A, Request_publish R" +
+            ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo, count FROM Download D NATURAL JOIN Application A, Request_publish R" +
                     " WHERE price >0 AND count =(SELECT max(count) FROM Download) AND D.app_id = A.app_id AND R.approvement=1 AND R.app_id = A.app_id");
 
             while (rs.next()) {
@@ -764,8 +974,8 @@ public class QueryService {
 
     }
 
-
-    public List<Application> get_best_free_applications(){
+    //DONE
+    public List<Application> get_free_applications(){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
         String userName = "root";
@@ -779,8 +989,8 @@ public class QueryService {
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo count FROM Download D,Application A, Request_publish T," +
-                    " WHERE price =0 AND count =(SELECT max(count) FROM Download) AND D.app_id = A.app_id AND R.approvement=1 AND R.app_id = A.app_id");
+            ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R WHERE price =0  " +
+                    "AND R.app_id = A.app_id AND R.approvement=1");
 
             while (rs.next()) {
                 Application owned_app = new Application();
@@ -799,10 +1009,9 @@ public class QueryService {
         }
 
         return owned_apps;
-
     }
 
-
+    // WAITING
     public List<Application> get_new_added_applications(){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -839,7 +1048,7 @@ public class QueryService {
         return owned_apps;
 
     }
-
+    //WAITING
     public List<Movie> get_movies() {
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -875,7 +1084,7 @@ public class QueryService {
         return owned_movies;
     }
 
-
+    //WAITING
     public List<Book> get_books(int user_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -909,7 +1118,7 @@ public class QueryService {
 
         return owned_books;
     }
-
+    //DONE
     public List<Application> get_wish_list(int  user_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -924,8 +1133,8 @@ public class QueryService {
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id, app_nam,publishing_date,price,text,logo FROM Wish_list W, Application A WHERE user_id ="+ user_id+
-                    "AND W.app_id = A.app_id");
+            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Wish_list W NATURAL JOIN Application A WHERE end_user_id ="+ user_id+
+                    " AND W.app_id = A.app_id");
 
             while (rs.next()) {
                 Application owned_app = new Application();
@@ -947,7 +1156,7 @@ public class QueryService {
 
     }
 
-
+    //DONE
     public List<Application> search_app(String search_app){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -955,15 +1164,19 @@ public class QueryService {
         String pass = "CS353FALL19";
 
         //Application[] owned_app_list
-
+        String search_string = "\""+ search_app + "%"+"\"";
+        search_app +="%";
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Application A, Request_publish R " +
-                    " WHERE R.app_id = A.app_id AND R.approvement=1 AND app_name LIKE '"+"\""+search_app+"\"" +"%'");
+            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R " +
+                    " WHERE app_name LIKE "+search_string);
+
+            //System.out.println("SELECT app_id, app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R " +
+            //      " WHERE R.app_id = A.app_id AND R.approvement=1 AND app_name LIKE '"+"%"+search_app+"%'");
 
             while (rs.next()) {
                 Application owned_app = new Application();
@@ -985,7 +1198,7 @@ public class QueryService {
 
     }
 
-
+    //WAITING
     public List<Application> search_category(String search_category){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -1000,7 +1213,7 @@ public class QueryService {
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Has_category H,Application A, Request_publish R WHERE category_name LIKE "+ "\""+search_category+"\"+" +
+            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Has_category H NATURAL JOIN Application A, Request_publish R WHERE category_name LIKE "+ "\""+search_category+"\"+" +
                     "AND H.app_id = A.app_id"+
                     "R.app_id = A.app_id AND R.approvement=1");
 
@@ -1023,7 +1236,7 @@ public class QueryService {
         return owned_apps;
 
     }
-
+    //WAITING
     public List<Application> search_app_and_category(String search_app,String search_category){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -1038,7 +1251,7 @@ public class QueryService {
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name FROM Has_category H, Application A, Request_publish R WHERE category_name LIKE"+
+            ResultSet rs = statement.executeQuery( "SELECT app_id, app_name FROM Has_category H NATURAL JOIN Application A, Request_publish R WHERE category_name LIKE"+
                     "\""+search_category+"\""+ "AND app_name LIKE"+ "\""+search_app+"\""+"AND H.app_id = A.app_id"
                     +"R.app_id = A.app_id AND R.approvement=1");
 
@@ -1062,6 +1275,44 @@ public class QueryService {
 
     }
     // Apps page queries:
+    //DONE
+    public Application get_app(int app_id){
+
+        String google_con = "jdbc:mysql://35.242.165.113/adastore";
+        String userName = "root";
+        String pass = "CS353FALL19";
+
+        //Application[] owned_app_list
+        Application owned_app = new Application();
+        List<Application> owned_apps = new ArrayList<Application>();
+        try {
+
+            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            Statement statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application WHERE app_id= "+app_id);
+
+            while (rs.next()) {
+                //Application owned_app = new Application();
+                owned_app.setApp_id(rs.getInt("app_id"));
+                owned_app.setApp_name(rs.getString("app_name"));
+                owned_app.setDATE(rs.getString("publishing_date"));
+                owned_app.setPrice(rs.getInt("price"));
+                owned_app.setText(rs.getString("text"));
+                owned_app.setLogo(rs.getString("logo"));
+                owned_apps.add(owned_app);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error Statement or Connection Failed!");
+            e.printStackTrace();
+        }
+
+        return owned_app;
+    }
+
+
+    //DONE
     public List<Application> get_app_on_sale(){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -1076,7 +1327,7 @@ public class QueryService {
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application A, Ruqest_publish R WHERE price >0  " +
+            ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R WHERE price >0  " +
                     "AND R.app_id = A.app_id AND R.approvement=1");
 
             while (rs.next()) {
@@ -1099,8 +1350,8 @@ public class QueryService {
     }
 
 
-
-    public List<Application> get_app_best_sale(){
+    //DONE
+    public List<Application> get_app_best_rate(){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
         String userName = "root";
@@ -1114,20 +1365,38 @@ public class QueryService {
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Rate R,Application A , Request_publish B" +
-                    " WHERE point = (SELECT max(point) FROM Rate) AND R.app_id = A.app_id"
-                    +"B.app_id = A.app_id AND B.approvement=1");
+            ResultSet rs = statement.executeQuery(
+                    " SELECT app_id, AVG(point) AS rate FROM Rate GROUP BY app_id ORDER BY rate DESC ");
 
+
+            rs.next();
+            double max = rs.getDouble("rate");
+            System.out.println("max"+max);
+            Application max_app = new Application();
+            max_app = get_app(rs.getInt("app_id"));
+            owned_apps.add(max_app);
             while (rs.next()) {
-                Application owned_app = new Application();
+                double count = rs.getDouble("rate");
+                Application owned_app = null;
+                System.out.println("count:"+count);
+                if(count==max){
+                    //owned_app = new Application();
+                    owned_app = get_app(rs.getInt("app_id"));
+                }
+
+                /*
                 owned_app.setApp_id(rs.getInt("app_id"));
                 owned_app.setApp_name(rs.getString("app_name"));
                 owned_app.setDATE(rs.getString("publishing_date"));
                 owned_app.setPrice(rs.getInt("price"));
                 owned_app.setText(rs.getString("text"));
                 owned_app.setLogo(rs.getString("logo"));
-                owned_apps.add(owned_app);
+
+                 */
+                if(owned_app != null)
+                    owned_apps.add(owned_app);
             }
+
 
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
@@ -1136,7 +1405,7 @@ public class QueryService {
 
         return owned_apps;
     }
-
+    //DONE
     public List<Application> get_app_most_downloaded(){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -1146,24 +1415,47 @@ public class QueryService {
         //Application[] owned_app_list
 
         List<Application> owned_apps = new ArrayList<Application>();
+        List<Integer> list = new ArrayList<Integer>();
         try {
 
             Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
-            ResultSet rs = statement.executeQuery( "SELECT app_id,app_name FROM Download D,Application A, Request_publish" +
-                    " WHERE count = (SELECT max(count) FROM Download) AND D.app_id = A.app_id"
-                    +"R.app_id = A.app_id AND R.approvement=1");
+            //ResultSet rs1= statement.executeQuery((SELECT SUM(P.count) AS total FROM Download P GROUP BY P.app_id))
 
+            ResultSet rs = statement.executeQuery(
+
+
+                    "SELECT T.app_id, T.total"+
+                            " FROM (SELECT app_id , SUM(count) AS total FROM Download GROUP BY app_id) T "
+                            +" ORDER BY T.total DESC;"
+
+                    //+" WHERE A.cont = A.maxVal"
+            );
+            rs.next();
+            int max = rs.getInt("total");
+            Application max_app = new Application();
+            max_app = get_app(rs.getInt("app_id"));
+            owned_apps.add(max_app);
             while (rs.next()) {
-                Application owned_app = new Application();
+                int count = rs.getInt("total");
+                Application owned_app = null;
+                if(count==max){
+                    //owned_app = new Application();
+                    owned_app = get_app(rs.getInt("app_id"));
+                }
+
+                /*
                 owned_app.setApp_id(rs.getInt("app_id"));
                 owned_app.setApp_name(rs.getString("app_name"));
                 owned_app.setDATE(rs.getString("publishing_date"));
                 owned_app.setPrice(rs.getInt("price"));
                 owned_app.setText(rs.getString("text"));
                 owned_app.setLogo(rs.getString("logo"));
-                owned_apps.add(owned_app);
+
+                 */
+                if(owned_app != null)
+                    owned_apps.add(owned_app);
             }
 
         } catch (Exception e) {
@@ -1175,7 +1467,7 @@ public class QueryService {
     }
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Application information page queries:
-
+    //DONE
     public Application get_app_informations(String app_name){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -1210,8 +1502,53 @@ public class QueryService {
 
         return owned_app;
     }
+    //DONE
+    public User get_User(int user_id){
+
+        String google_con = "jdbc:mysql://35.242.165.113/adastore";
+        String userName = "root";
+        String pass = "CS353FALL19";
+
+        //Application[] owned_app_list
+        User user = new User();
+        List<Application> owned_apps = new ArrayList<Application>();
+        try {
+
+            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            Statement statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery( "SELECT * FROM User WHERE user_id = "+ user_id);
+
+            while (rs.next()) {
+                //Application owned_app = new Application();
+                user.setUser_id(rs.getInt("user_id"));
+                user.setPassword(rs.getString("password"));
+                user.setUsername(rs.getString("name"));
+                user.setSurname(rs.getString("surname"));
+                user.setDATE(rs.getString("birth_date"));
+                user.setEmail(rs.getString("email"));
+                user.setSet_id(rs.getInt("set_id"));
+                //owned_apps.add(owned_app);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error Statement or Connection Failed!");
+            e.printStackTrace();
+        }
+
+        return user;
 
 
+    }
+
+    public static int calculateAge(LocalDate birthDate, LocalDate currentDate) {
+        if ((birthDate != null) && (currentDate != null)) {
+            return Period.between(birthDate, currentDate).getYears();
+        } else {
+            return 0;
+        }
+    }
+    //DONE
     public void download_app(int user_id,String app_name, int device_id){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -1219,30 +1556,64 @@ public class QueryService {
         String pass = "CS353FALL19";
 
         //Application[] owned_app_list
-        Application owned_app = get_app_informations(app_name);
-        try{
+        Device device = get_Device(device_id);
+        System.out.println("device  id =" + device.getDevice_id());
+        Application app = get_app_informations(app_name);
+        System.out.println("app name =" + app.getApp_name());
+        MinimumRequirements req = get_min_req(app.getApp_id());
+        User user = get_User(user_id);
+        //LocalDate birth_date = new LocalDate(user.getDATE());
+        //calculateAge()
+        String year = user.getDATE().substring(0,4);
+        String month =user.getDATE().substring(5,7);
+        String day=user.getDATE().substring(8,10);
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
-            Statement statement = connection.createStatement();
+        Month m = Month.of(Integer.parseInt(month));
+        LocalDate now = LocalDate.now();
+        LocalDate birth_date = LocalDate.of(Integer.parseInt(year),m,Integer.parseInt(day));
 
-            String query1 = "INSERT INTO Download VALUES("+user_id+","+device_id+","+ owned_app.getApp_id()+",NULL);";
-            String query2="UPDATE Download "+
-                    "SET count = (SELECT count FROM Download WHERE user_id ="+ user_id+")+1"+
-                    " WHERE user_id = "+ user_id+" AND device_id = "+ device_id +"AND app_id = "+ owned_app.getApp_id();
+        int age = calculateAge (birth_date, now);
 
-            statement.execute(query1);
-            statement.execute(query2);
+        System.out.println("age is :" + age);
 
-        } catch (Exception e) {
-            System.err.println("Error Statement or Connection Failed!");
-            e.printStackTrace();
+
+        if( user.getUser_id() >= 20000000 && user !=null){
+            System.out.println("You are an editor or a developer. So you cannot download an app");
         }
 
+        else if(app.getPrice() >0 && age < 18 && app !=null){
+            System.out.println("You are not above age of 18 so you cannot download paid apps");
+        }
+        else if(device.getRAM() < req.getRAM() && device != null){
+            System.out.println("Your system's specialities are below this app's requirements");
+        }
+
+        else {
+
+
+            Application owned_app = get_app_informations(app_name);
+            try {
+
+                Connection connection = DriverManager.getConnection(google_con, userName, pass);
+                Statement statement = connection.createStatement();
+
+                String query1 = "INSERT INTO Download VALUES(" + user_id + "," + device_id + "," + owned_app.getApp_id() + "," + "1" + ");";
+                //System.out.println(query1);
+
+
+                statement.execute(query1);
+
+
+            } catch (Exception e) {
+                System.err.println("Error Statement or Connection Failed!");
+                e.printStackTrace();
+            }
+        }
         //return owned_app;
     }
 
 
-
+    //DONE
     public void rate_app(int user_id,String app_name, double rate) {
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -1257,10 +1628,10 @@ public class QueryService {
             Statement statement = connection.createStatement();
 
             String query1 = "INSERT INTO Rate VALUES(" + user_id + "," + owned_app.getApp_id() + "," + rate + ");";
-            String query2 = "SELECT average(point) FROM Rate group by app_id WHERE app_id =" + owned_app.getApp_id();
+            //String query2 = "SELECT average(point) FROM Rate group by app_id WHERE app_id =" + owned_app.getApp_id();
 
             statement.execute(query1);
-            statement.execute(query2);
+            //statement.execute(query2);
 
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
@@ -1269,7 +1640,37 @@ public class QueryService {
 
     }
 
+    //DONE
+    public Double get_rate_app(String app_name) {
 
+        String google_con = "jdbc:mysql://35.242.165.113/adastore";
+        String userName = "root";
+        String pass = "CS353FALL19";
+
+        //Application[] owned_app_list
+        Application owned_app = get_app_informations(app_name);
+        Rate rate = new Rate();
+        Double point = 0.0;
+        try {
+
+            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            Statement statement = connection.createStatement();
+
+
+            ResultSet rs = statement.executeQuery( "SELECT AVG(point) AS point FROM Rate  WHERE app_id =" + owned_app.getApp_id()+" GROUP BY app_id" );
+            rs.next();
+            point = rs.getDouble("point");
+
+            //statement.execute(query2);
+
+        } catch (Exception e) {
+            System.err.println("Error Statement or Connection Failed!");
+            e.printStackTrace();
+        }
+        return point;
+    }
+
+    //DONE
     public void add_app_wish_list(int user_id,String app_name){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -1294,9 +1695,9 @@ public class QueryService {
         //return owned_app;
     }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Upload Request Page queries:
-
+    //DONE
     public List<Editor> get_editors(){
 
 
@@ -1329,7 +1730,7 @@ public class QueryService {
 
         return editors;
     }
-
+    //DONE
     public void upload_request_app(int editor_id,int developer_id,String app_name, String publishing_date, int price, String text, String logo){
 
         // important comment : developer_id is already user_id so get it from global user_id object
@@ -1387,8 +1788,10 @@ public class QueryService {
         //return owned_app;
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //Approve request page
+
+    //DONE
     public List<Application> get_requested_apps(int editor_id){
         // we are already editor in this page so user_id = editor_id
 
@@ -1427,6 +1830,7 @@ public class QueryService {
         return owned_apps;
     }
 
+    //DONE
     public void approve_request(int editor_id,int app_id){
         // we are already editor in this page so user_id = editor_id
 
