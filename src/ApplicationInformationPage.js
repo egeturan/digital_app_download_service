@@ -6,18 +6,12 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Image from 'react-bootstrap/Image';
 import AppComments from './AppComments';
 import Carousel from 'react-bootstrap/Carousel';
-import Tab from 'react-bootstrap/Tab';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import w1 from './assets/images/screenW1.png';
 import w2 from './assets/images/screenW2.png';
 import twitter from './assets/images/twitter.jpeg';
 import ins from './assets/images/ins.jpeg';
-import tiktok from './assets/images/tiktok.jpeg';
-import AxiosTest from './AxiosTest';
 import GLOBAL from './global';
-import RequestUpload from './RequestUpload';
-
+import tiktok from './assets/images/tiktok.jpeg';
 
 class ApplicationInformationPage extends React.Component{
 
@@ -28,6 +22,9 @@ class ApplicationInformationPage extends React.Component{
     };
 
     componentDidMount(){
+
+        console.log(this.props.appP);
+        
         if(GLOBAL.userG == null){
             this.setState({
                 authenticate: 0
@@ -55,7 +52,7 @@ class ApplicationInformationPage extends React.Component{
            
             <Grid>
                 <GridColumn>
-                <Image  src={whatsapp} style={{width: "50px", height: "50px"}} alt='alt' roundedCircle />
+                <Image  src={this.props.appP.image} style={{width: "50px", height: "50px"}} alt='alt' roundedCircle />
                 </GridColumn>
                 <GridColumn style={{marginLeft: "40px"}}>
                     <h4>WhatsApp</h4>
@@ -72,17 +69,6 @@ class ApplicationInformationPage extends React.Component{
 
         );
 
-
-        
-
-
-        let requestTest =  (
-            <div>
-                <AxiosTest></AxiosTest>
-            </div>
-
-
-        );
 
         let applicationInfo = (
 
@@ -111,11 +97,11 @@ class ApplicationInformationPage extends React.Component{
                 <Container>
                     <Grid>
                         <Grid.Column style={{width: "120px", height: "120px"}}>
-                                <Image  src={whatsapp} style={{width: "150px", height: "150px"}} alt='alt' roundedCircle />
+                                <Image  src={this.props.appP.image} style={{width: "150px", height: "150px"}} alt='alt' roundedCircle />
                                     
                         </Grid.Column>
                         <Grid.Column style={{width: "300px", height: "120px", marginLeft: "60px", marginTop: "20px"}}>
-                                <h1>Whatsapp Messenger</h1>
+                                <h1>{this.props.appP.appName}</h1>
                                 <h4>Developer Name: Facebook</h4>
                                 <h4>Application Version is: 3.15</h4>
                                 <h4>Publishing Date: 08/10/2019</h4>
@@ -287,9 +273,6 @@ The client application was created by WhatsApp Inc. of Mountain  <br/>View, Cali
             displayer = applicationInfo;
             console.log(this.state.user);
           }
-          else if(this.state.showDisplay == 3){
-            displayer = requestTest;
-      }
 
 
         return(

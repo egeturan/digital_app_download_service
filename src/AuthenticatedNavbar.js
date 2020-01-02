@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import logo from './assets/images/ada-lovelace.jpg';
 import profile from './assets/images/profile.png';
 import Image from 'react-bootstrap/Image';
-import GLOBAL from './global';
+import axios from 'axios';
 
 import {
   withRouter
@@ -18,7 +18,8 @@ class NavigationAda extends React.Component {
 
   state = {
       authentication: 1,
-      showDisplay: 0
+      showDisplay: 0,
+      keyWord: ""
   };
   
      //Button Message pass
@@ -27,10 +28,32 @@ class NavigationAda extends React.Component {
           showDisplay: number
       });
     }
+    
+    handleChange = event => {
+      this.setState({ [event.target.name]: event.target.value });
+    };
 
+    searchApp(num) {
+      console.log("KeyWord is: " + this.state.keyWord);
+
+      const app = {
+        text: this.state.keyWord
+      }
+
+      axios.post(`http://localhost:8080/search_app/`, app )
+      .then(res => {
+        let apps = [];
+        apps = res.data;
+        console.log(apps);
+      })
+
+    }
+  
 
 
     render() {
+
+      const { keyWord } = this.state;
 
       const style1 = {
           width: '80px',
@@ -60,8 +83,8 @@ class NavigationAda extends React.Component {
       </Nav>
 
       <Form inline>
-        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-        <Button variant="success">Search</Button>
+        <FormControl name="keyWord"  type="text" onChange={this.handleChange} value={keyWord} placeholder="keyWord" className="mr-sm-2" />
+        <Button variant="success" onClick={this.searchApp.bind(this, 0)}>Search</Button>
       </Form>
       <Button variant="light" onClick={this.props.click} style={{width: "150px", height: "50px"}}>Logout</Button>
       <Image src={profile} style={style2} alt='alt' roundedCircle onClick={this.displaySwitch.bind(this, 5)}/>
@@ -69,27 +92,12 @@ class NavigationAda extends React.Component {
     </div>
   );
 
-
     if(this.state.authentication == 0){
        
     }else if(this.state.authentication == 1){
       displayer = authenticatedNavbar;
     }
 
-
-    if(this.state.showDisplay == 9){
-      
-    }else if(this.state.showDisplay == 2){
-      this.props.history.push("/register");
-    } else if(this.state.showDisplay == 3){
-      this.props.history.push("/register-editor");
-    } else if(this.state.showDisplay == 4){
-      this.props.history.push("/register-developer");
-    } else if(this.state.showDisplay == 5){
-      this.props.history.push("/profile-page");
-    } else if(this.state.showDisplay == 6){
-      this.props.history.push("/app-information");
-    } 
       
       return (
         <div>

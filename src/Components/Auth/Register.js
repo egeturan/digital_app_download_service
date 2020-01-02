@@ -143,6 +143,7 @@ class Register extends React.Component {
     } = this.state;
 
     return (
+      
       <div>
         <Container textAlign="right" style={{height: 0, marginLeft: "140px", width: "auto"}}>
           <Button onClick={this.goToMainPage.bind(this, 0)}>

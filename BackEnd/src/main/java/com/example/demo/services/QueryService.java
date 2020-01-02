@@ -52,7 +52,7 @@ public class QueryService {
                 owned_app.setDownload(rs.getInt("download"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -97,7 +97,7 @@ public class QueryService {
                 //owned_app.setDownload(rs.getInt("download"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -141,7 +141,7 @@ public class QueryService {
                 owned_app.setDownload(rs.getInt("download"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -178,6 +178,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
+            statement.close();
 
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
@@ -216,7 +217,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -250,7 +251,7 @@ public class QueryService {
                 owned_device.setCPU(rs.getString("CPU"));
                 owned_device.setRAM(rs.getInt("RAM"));
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -289,7 +290,7 @@ public class QueryService {
 
 
             statement.execute(query2);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -321,7 +322,7 @@ public class QueryService {
 
             statement.execute(query1);
             //statement.execute(query2);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -353,7 +354,7 @@ public class QueryService {
                 owned_req.setOS_version(rs.getString("OS_version"));
             }
             //statement.execute(query2);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -377,7 +378,7 @@ public class QueryService {
             while (rs.next()) {
                 counter = rs.getInt("device_id");
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -403,7 +404,7 @@ public class QueryService {
             while (rs.next()) {
                 counter++;
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -428,7 +429,7 @@ public class QueryService {
             while (rs.next()) {
                 counter++;
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -453,7 +454,7 @@ public class QueryService {
             while (rs.next()) {
                 counter++;
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -492,7 +493,7 @@ public class QueryService {
             //ResultSet rs = statement.executeQuery(query1);
             statement.execute(query1);
             statement.execute(query2);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -528,7 +529,7 @@ public class QueryService {
             statement.execute(query1);
             statement.execute(query2);
 
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -563,7 +564,7 @@ public class QueryService {
             String query2 = "INSERT INTO Editor VALUES("+"default,"+salary+");";
             statement.execute(query1);
             statement.execute(query2);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -596,7 +597,7 @@ public class QueryService {
                 login_user.setEmail(rs.getString("email"));
                 login_user.setSet_id(rs.getInt("set_id"));
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -636,7 +637,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -675,7 +676,7 @@ public class QueryService {
 
                 owned_movies.add(owned_movie);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -712,7 +713,7 @@ public class QueryService {
 
                 owned_books.add(owned_book);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -748,7 +749,7 @@ public class QueryService {
 
                 owned_devices.add(owned_device);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -780,7 +781,7 @@ public class QueryService {
 
 
 
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -815,7 +816,7 @@ public class QueryService {
 
                 owned_comments.add(owned_comment);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -851,7 +852,7 @@ public class QueryService {
 
                 owned_comments.add(owned_comment);
             }
-
+            statement.close(); statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -889,7 +890,7 @@ public class QueryService {
 
                 owned_payment_methods.add(owned_payment_method);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -926,7 +927,7 @@ public class QueryService {
 
                 //owned_settings.add(owned_payment_method);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -964,7 +965,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1002,7 +1003,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1039,7 +1040,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1075,7 +1076,7 @@ public class QueryService {
 
                 owned_movies.add(owned_movie);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1110,7 +1111,7 @@ public class QueryService {
 
                 owned_books.add(owned_book);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1146,7 +1147,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1188,7 +1189,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1227,7 +1228,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1265,7 +1266,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1302,7 +1303,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1340,7 +1341,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1397,7 +1398,7 @@ public class QueryService {
                     owned_apps.add(owned_app);
             }
 
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1457,7 +1458,7 @@ public class QueryService {
                 if(owned_app != null)
                     owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1494,7 +1495,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1530,7 +1531,7 @@ public class QueryService {
                 user.setSet_id(rs.getInt("set_id"));
                 //owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1603,7 +1604,7 @@ public class QueryService {
 
                 statement.execute(query1);
 
-
+                statement.close();
             } catch (Exception e) {
                 System.err.println("Error Statement or Connection Failed!");
                 e.printStackTrace();
@@ -1632,7 +1633,7 @@ public class QueryService {
 
             statement.execute(query1);
             //statement.execute(query2);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1662,7 +1663,7 @@ public class QueryService {
             point = rs.getDouble("point");
 
             //statement.execute(query2);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1686,7 +1687,7 @@ public class QueryService {
 
             String query1 = "INSERT INTO Wish_list VALUES("+user_id+","+owned_app.getApp_id()+");";
             statement.execute(query1);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1722,7 +1723,7 @@ public class QueryService {
                 new_editor.setSalary(rs.getInt("salary"));
                 editors.add(new_editor);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1779,7 +1780,7 @@ public class QueryService {
 
 
             statement.execute(query2);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1821,7 +1822,7 @@ public class QueryService {
                 owned_app.setLogo(rs.getString("logo"));
                 owned_apps.add(owned_app);
             }
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1852,7 +1853,7 @@ public class QueryService {
                     "SET approvement = 1" +
                     " WHERE editor_id ="+ editor_id+" AND app_id ="+app_id+";";
             statement.execute(query1);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();
@@ -1879,7 +1880,7 @@ public class QueryService {
                     "SET approvement = 0" +
                     " WHERE editor_id ="+ editor_id+" AND app_id ="+app_id+";";
             statement.execute(query1);
-
+            statement.close();
         } catch (Exception e) {
             System.err.println("Error Statement or Connection Failed!");
             e.printStackTrace();

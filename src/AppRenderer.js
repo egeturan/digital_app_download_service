@@ -10,11 +10,21 @@ import EditorSidebar from './EditorSidebar';
 import RateApp from './axios/RateApp';
 import GetAppInformation from './axios/GetAppInformation';
 import GetMinReq from './axios/GetMinReq';
-import GetAppsOnSale from './axios/GetAppsOnSale';
 import GetRateApp from './axios/GetRateApp';
 import ApproveRequest from './axios/ApproveRequest';
 import AddAppWishList from './axios/AddAppWishList';
 import GetWishList from './axios/GetWishList';
+import GetAppBestRate from './axios/GetAppBestRate';
+import GetAppDownloadRateViews from './axios/GetAppDownloadRateViews';
+import GetAppDownloadViews from './axios/GetAppDownloadViews';
+import GetAppMostDownloaded from './axios/GetAppMostDownloaded';
+import GetAppRateViews from './axios/GetAppRateViews';
+import GetApprovedApplications from './axios/GetApprovedApplications';
+import GetAppsOnSale from './axios/GetAppsOnSale';
+import GetBestSellingApps from './axios/GetBestSellingApps';
+import GetFreeApps from './axios/GetFreeApps';
+import SearchApp from './axios/SearchApp';
+import GetOwnedApplications from './axios/GetOwnedApplications';
 
 class AppRenderer extends React.Component{
 
@@ -89,7 +99,7 @@ class AppRenderer extends React.Component{
                     <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
                     <h1>User Page Will be</h1>
                     <HomePage2></HomePage2>
-                 
+                    <GetOwnedApplications user_id={this.state.user.user_id}></GetOwnedApplications>
                     
                     </div>
                 );
@@ -168,8 +178,15 @@ class AppRenderer extends React.Component{
                {/*           <ApproveRequest editor_id={30000001} app_id={30}/> */}   
                  {/*            <AddAppWishList user_id={20000000} app_name={"instagram"}/> */} 
                     {/*          <GetWishList user_id={"10000001"}/> */} 
-                    <GetWishList user_id={"10000001"}/>
-
+                     {/*      <GetWishList user_id={"10000001"}/> */} 
+                    {/*  <GetAppDownloadRateViews></GetAppDownloadRateViews>
+                        <GetAppBestRate></GetAppBestRate>
+						<GetAppMostDownloaded/>
+						<GetAppRateViews/>
+						<GetApprovedApplications/>
+						<GetAppsOnSale/>
+            <SearchApp/>  */}
+                   
                 <HomePage2></HomePage2>
              
                 </div>

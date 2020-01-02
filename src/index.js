@@ -26,6 +26,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from "./reducers";
 import { setUser, clearUser } from "./actions";
 import HomePage from "./Homepage";
+import Homepage2 from "./Homepage2";
 
 const store = createStore(rootReducer, composeWithDevTools());
 

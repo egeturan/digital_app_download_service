@@ -455,9 +455,9 @@ public class AlertController {
     public List<Application>  get_free_applications(){
 
         System.out.println("get_free_applications");
-        List<Application> appO = queryService.get_free_applications();
+        List<Application> appO8 = queryService.get_free_applications();
 
-        return appO;
+        return appO8;
     }
 
     // not made 18
@@ -465,20 +465,21 @@ public class AlertController {
     public List<Application>  get_new_added_applications(){
 
         System.out.println("get_new_added_applications");
-        List<Application> appO = queryService.get_new_added_applications();
+        List<Application> app9 = queryService.get_new_added_applications();
 
-        return appO;
+        return app9;
     }
 
 
     // not made 19
-    @RequestMapping("/search_app/{name}") //bu url e sadece post request atılabilicek
-    public List<Application> search_app(@PathVariable String name){
+    @RequestMapping("/search_app") //bu url e sadece post request atılabilicek
+    public List<Application> search_app(@RequestBody Application appObje){
 
         System.out.println("search_app");
-        List<Application> appO = queryService.search_app(name);
+        System.out.println(appObje.getText());
+        //List<Application> appO = queryService.search_app(appObje.getText());
 
-        return appO;
+        return null;
     }
 
     // not made 18
