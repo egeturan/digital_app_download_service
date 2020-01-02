@@ -127,7 +127,7 @@ class Register extends React.Component {
   }
 
   goToMainPage(num){
-    this.props.history.push("/home-page");
+    this.props.history.push("/");
   }
 
   render() {

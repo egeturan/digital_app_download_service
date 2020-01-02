@@ -7,6 +7,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { withRouter } from "react-router-dom";
+import ApproveRequest from "./axios/ApproveRequest";
+import RejectRequest from "./axios/RejectRequest";
 
 class MakeApprovement extends React.Component{
     state = {
@@ -16,10 +18,12 @@ class MakeApprovement extends React.Component{
         showDisplay: 0,
         userId: 0,
         typeU: 0,
+        app_id: "",
         app_name: "",
         price: "",
         explanation: "",
-        editor_id: ""
+        editor_id: "",
+        situation: 0
     }
 
     componentDidMount(){
@@ -43,36 +47,42 @@ class MakeApprovement extends React.Component{
           let newRequests = {requests: res.data};
           console.log(newRequests);
           this.setState(newRequests);
-
-          
- 
         })
 
-
-
-
     }
-    
+
+    approve_delete(app_to_delete) {
+        ApproveRequest({editor_id: this.state.editor_id, app_id: app_to_delete.app_id});
+        this.setState(prevState => ({
+            requests: prevState.requests.filter(app => app != app_to_delete)
+            })
+        );
+    }
+
+    reject_delete(app_to_delete) {
+        RejectRequest({editor_id: this.state.editor_id, app_id: app_to_delete.app_id});
+        this.setState(prevState => ({
+                requests: prevState.requests.filter(app => app != app_to_delete)
+            })
+        );
+    }
 
     displayer(number) {
-        
-      }
+        this.setState({
+            showDisplay: number
+        });
+    }
 
 
-    render(){
+    render() {
 
         return(
-            <div style={{width: "auto", height:"2500px", backgroundColor:"#f0f0f5"}}>
+            <div style={{width: "auto", height:"auto", backgroundColor:"#f0f0f5"}}>
+                <h2 textAlign="center"> Editor ID : {this.state.editor_id}</h2>
             <Divider></Divider>
-            <div textAlign="left" style={{overflowX : 'auto', fontSize: '20px', right: "0px", position: "fixed", alignSelf: "flex-end", width:"240px", height:"100px", top:"180px", borderStyle: "solid"}}>
-              Editor Profile
-              <br/> Editor ID : {this.state.editor_id}
-              <Button onClick={this.props.click} style={{color: "yellow", backgroundColor: "blue"}}> Turn to Editor Menu</Button>
-                </div>
-
 
             <Container textAlign="center">
-            <h1>Recent Requests</h1>
+            <h1>Recent Application Requests</h1>
             <Divider/>
             <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link0">
             <Row>
@@ -80,7 +90,7 @@ class MakeApprovement extends React.Component{
                 <ListGroup>
                 { 
              
-              this.state.requests.map((person, index) => <ListGroup.Item action href={"#link" + index}> {"Request " + (index + 1) }</ListGroup.Item>)}
+              this.state.requests.map((app, index) => <ListGroup.Item action href={"#request" + (index + 1)}> {" App Request " + (index + 1) }</ListGroup.Item>)}
   
                 </ListGroup>
                 </Col>
@@ -88,24 +98,23 @@ class MakeApprovement extends React.Component{
                 <Tab.Content>
                 { 
              
-             this.state.requests.map((person, index) =>   <Tab.Pane eventKey={"#link" + index}>
+             this.state.requests.map((app, index) =>   <Tab.Pane eventKey={"#request" + (index + 1)}>
                 <Container textAlign="left">
-                <p style={{fontSize : "18px"}}> <strong> App name is: {person.app_name}
+                <p style={{fontSize : "18px"}}> <strong> App Name: {app.app_name}
                     <br/>
-                    App id is: {person.app_id}
+                    App ID: {app.app_id}
                     <br/>
-                    Price is: {person.price}
+                    App Price: {app.price}
                     <br/>
-                Expanation is: {person.text}
-                <br/>
-                Logo : null
+                    App Description: {app.text}
+                    <br/>
+                    App Logo: null
                 </strong>
                 </p>
-            <Button color="green">Approve Request</Button>
-            <Button color="red">Reject Request</Button>
+                    <Button type="submit" color="green" onClick={this.approve_delete.bind(this, app)}>Approve Request</Button>
+                    <Button type="submit" color="red" onClick={this.reject_delete.bind(this, app)}>Reject Request</Button>
             </Container>
             </Tab.Pane>)}
-
                 </Tab.Content>
                 </Col>
             </Row>

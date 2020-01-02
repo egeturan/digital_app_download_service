@@ -1,15 +1,20 @@
 import React from 'react';
-import ApplicationInformationPage from './ApplicationInformationPage';
-import { Grid, Container, Divider, Statistic, Form, Button, Icon, Rating, GridColumn} from 'semantic-ui-react';
+import { Grid, Container, Divider, Statistic, Form, Button} from 'semantic-ui-react';
 import NavigationAda from './NavigationAda';
 import HomePage2 from './Homepage2';
 import AuthenticatedNavbar from './AuthenticatedNavbar';
 import GLOBAL from './global';
-
-import DimmerExampleDimmer from './DimmerExampleDimmer';
 import RequestUpload from './RequestUpload';
 import MakeApprovement from './MakeApprovement';
 import EditorHomepage from './EditorHomepage';
+import RateApp from './axios/RateApp';
+import GetAppInformation from './axios/GetAppInformation';
+import GetMinReq from './axios/GetMinReq';
+import GetAppsOnSale from './axios/GetAppsOnSale';
+import GetRateApp from './axios/GetRateApp';
+import ApproveRequest from './axios/ApproveRequest';
+import AddAppWishList from './axios/AddAppWishList';
+import GetWishList from './axios/GetWishList';
 
 class AppRenderer extends React.Component{
 
@@ -72,12 +77,13 @@ class AppRenderer extends React.Component{
       }
 
 
-    render(){
+    render() {
 
         let render = null;
+        const greeting = 'Hello Function Component!';
 
-        if(this.state.authenticate == 1){
-            if(GLOBAL.typeU == 1){
+        if(this.state.authenticate == 1) {
+            if(GLOBAL.typeU == 1) {
                 render = (
                     <div>
                     <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
@@ -87,72 +93,66 @@ class AppRenderer extends React.Component{
                     
                     </div>
                 );
-            }else if(GLOBAL.typeU == 2){
+            } else if(GLOBAL.typeU == 2){
                 if(this.state.showDisplay === 1){
                     render = (
                         <div>
                         <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
-                        <RequestUpload></RequestUpload>
+                        <RequestUpload click={this.turnBackFromMakeAppoinment.bind(this, 'EGE')}></RequestUpload>
                         </div>
                     );
-                }else{
+                } else{
                 render = (
                     <div>
                     <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
                     <h1>Developer Page Will be</h1>
                     <Button  onClick={this.displayer.bind(this,
          1)} style={{color: "yellow", backgroundColor: "blue"}}> Make Request </Button>
-                    <DimmerExampleDimmer></DimmerExampleDimmer>
+                    <HomePage2></HomePage2>
+                
+
                     </div>
                 );
                     }
-            }else if(GLOBAL.typeU == 3){
-                if(this.state.showDisplay === 2){
+            } else if(GLOBAL.typeU == 3){
                     render = (
                         <div>
                         <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
-                        <MakeApprovement click={this.turnBackFromMakeAppoinment.bind(this, 'EGE')} ></MakeApprovement>
-                        <HomePage2></HomePage2>
-                 
-                        </div>
-                    );
-                }else{
-                    render = (
-                        <div>
-                        <AuthenticatedNavbar click={this.switchNameHandler.bind(this, 'EGE')}> </AuthenticatedNavbar>
-                        <h1>Editor Page Will be</h1>
+                        <h1>Editor Page</h1>
                         <Grid>
 
                         <Grid.Column style={{}}>
-    
+
                         <EditorHomepage></EditorHomepage>
                         </Grid.Column>
-
-                        <Grid.Column style={{width: "auto", marginLeft: "260px"}}>
-                        <HomePage2></HomePage2>
-                        </Grid.Column>
                         </Grid>
-
-                   
-                        <Button  onClick={this.displayer.bind(this,
-         2)} style={{color: "yellow", backgroundColor: "blue"}}> Make Approvement </Button>
                         </div>
                     );
-                        }
-        
-            }else{
+            } else {
                 render = (
                     <div>
-                    <h1>Unknown Page</h1>
+                    <h1>Page is unknown!</h1>
                     </div>
                 );
             } 
-        }else{
+        } else{
             render = (
 
                 <div>
                 <NavigationAda></NavigationAda>
-                <h1>Homepage for nonauthentication</h1>
+
+           {/* <RateApp user_id={"10000000"} rate={4.0} app_name={"instagram"} value={greeting}/> */}     
+            {/*  <GetAppInformation app_name={"instagram"}/>*/}    
+            {/*  <GetMinReq app_id={30}/>*/}  
+              {/*   <GetAppsOnSale/> */}  
+             {/*   <GetRateApp app_name={"instagram"}/> */} 
+               {/*           <ApproveRequest editor_id={30000001} app_id={30}/> */}   
+                 {/*            <AddAppWishList user_id={20000000} app_name={"instagram"}/> */} 
+                    {/*          <GetWishList user_id={"10000001"}/> */} 
+                    <GetWishList user_id={"10000001"}/>
+
+                <HomePage2></HomePage2>
+
                 </div>
             );
         }
@@ -161,8 +161,6 @@ class AppRenderer extends React.Component{
         return(
             <div>
                 {render}
-
-
             </div>
 
 

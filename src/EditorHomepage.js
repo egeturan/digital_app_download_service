@@ -12,6 +12,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {Button, Grid} from "semantic-ui-react";
 import HomePage2 from "./Homepage2";
+import GetApprovedApplications from "./axios/GetApprovedApplications";
+import MakeApprovement from "./MakeApprovement";
+import MakeUpdateApprovement from "./MakeUpdateApprovement";
 
 
 class EditorHomepage extends React.Component {
@@ -44,7 +47,7 @@ class EditorHomepage extends React.Component {
     render() {
 
         const sidebar = (
-            <div style={{overflowX : 'auto', fontSize: '20px', left: "0px", position: "fixed", alignSelf: "flex-end", width:"300px", height:"auto", top:"120px", backgroundColor: "white"}}>
+            <div style={{overflowX : 'auto', fontSize: '20px', left: "0px", position: "fixed", alignSelf: "flex-end", width:"auto", height:"auto", top:"120px", backgroundColor: "white"}}>
                 <ListItem button onClick={this.displayer.bind(this, 0)}>
                     <ListItemIcon>
                         <DashboardIcon />
@@ -90,13 +93,13 @@ class EditorHomepage extends React.Component {
 
         const applicationRequests = (
             <p>
-
+                <MakeApprovement></MakeApprovement>
             </p>
         );
 
         const updateRequests = (
             <p>
-                Update Requests
+                <MakeUpdateApprovement></MakeUpdateApprovement>
             </p>
         );
 
