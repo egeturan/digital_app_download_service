@@ -16,6 +16,10 @@ public class QueryService {
     int editor_num;
     /// General purpose
     //DONE
+    Connection connection;
+    public QueryService(){
+        connection = DriverManager.getConnection(google_con, userName, pass);
+    }
     public List<View> get_app_download_rate_views(){
 
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
@@ -27,10 +31,7 @@ public class QueryService {
         List<View> owned_apps = new ArrayList<View>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
-
-
             //String query1 = "CREATE VIEW view AS SELECT A.app_id, app_name,publishing_date,price,text,logo,AVG(R.point) AS average, SUM(D.count) AS download FROM Application A NATURAL JOIN Download D, Rate R WHERE " +
             //      " A.app_id = D.app_id AND A.app_id = R.app_id " +
             //    " GROUP BY A.app_id;";
@@ -73,9 +74,7 @@ public class QueryService {
         List<View> owned_apps = new ArrayList<View>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
-
 
             //String query1 = "CREATE VIEW view2 AS SELECT A.app_id, app_name,publishing_date,price,text,logo,AVG(R.point) AS average FROM Application A NATURAL JOIN Rate R WHERE " +
             //    "A.app_id = R.app_id " +
@@ -117,9 +116,7 @@ public class QueryService {
         List<View> owned_apps = new ArrayList<View>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
-
 
             //String query1 = "CREATE VIEW view3 AS SELECT A.app_id, app_name,publishing_date,price,text,logo,SUM(D.count) AS download FROM Application A NATURAL JOIN Download D WHERE " +
             //  "A.app_id = D.app_id " +
@@ -161,7 +158,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R WHERE " +
@@ -200,7 +196,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R WHERE " +
@@ -239,7 +234,6 @@ public class QueryService {
         //List<Device> owned_devices = new ArrayList<Device>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery("SELECT* FROM Device WHERE device_id= "+device_id);
@@ -271,7 +265,6 @@ public class QueryService {
         List<Device> owned_devices = new ArrayList<Device>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
 
@@ -310,9 +303,7 @@ public class QueryService {
         List<Device> owned_devices = new ArrayList<Device>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
-
 
             String query1 = "INSERT INTO Minimum_requirements VALUES(" +
                     app_id + "," +
@@ -340,11 +331,9 @@ public class QueryService {
         //Application[] owned_app_list
         MinimumRequirements owned_req = new MinimumRequirements();
         try {
-
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            
             Statement statement = connection.createStatement();
-
-
+           
             ResultSet rs = statement.executeQuery("SELECT app_id, CPU, RAM, OS_version FROM  Minimum_requirements M NATURAL JOIN Application A WHERE app_id ="+ app_id);
 
             while(rs.next()){
@@ -370,7 +359,7 @@ public class QueryService {
 
         int counter = 0;
         try {
-            Connection connection = DriverManager.getConnection(google_con, user_name, pass);
+
             Statement statement = connection.createStatement();
 
             String query = "SELECT* FROM Device";
@@ -396,7 +385,7 @@ public class QueryService {
 
         int counter = 0;
         try {
-            Connection connection = DriverManager.getConnection(google_con, user_name, pass);
+
             Statement statement = connection.createStatement();
 
             String query = "SELECT* FROM End_user";
@@ -421,7 +410,7 @@ public class QueryService {
 
         int counter = 0;
         try {
-            Connection connection = DriverManager.getConnection(google_con, user_name, pass);
+
             Statement statement = connection.createStatement();
 
             String query = "SELECT* FROM Developer";
@@ -446,7 +435,7 @@ public class QueryService {
 
         int counter = 0;
         try {
-            Connection connection = DriverManager.getConnection(google_con, user_name, pass);
+
             Statement statement = connection.createStatement();
 
             String query = "SELECT* FROM Editor";
@@ -476,7 +465,7 @@ public class QueryService {
 
 
         try {
-            Connection connection = DriverManager.getConnection(google_con, user_name, pass);
+
             Statement statement = connection.createStatement();
             end_user_num = getEndUserNum();
             //end_user_num = end_user_num+1;
@@ -512,7 +501,7 @@ public class QueryService {
         System.out.println(name + " " + surname + " " + birth_date + " " + email + " " + password + " " + company_name);
 
         try {
-            Connection connection = DriverManager.getConnection(google_con, user_name, pass);
+
             Statement statement = connection.createStatement();
             developer_num = getDeveloperNum();
 
@@ -548,7 +537,7 @@ public class QueryService {
         System.out.println(name + " " + surname + " " + birth_date + " " + email + " " + password + " " + salary);
 
         try {
-            Connection connection = DriverManager.getConnection(google_con, user_name, pass);
+
             Statement statement = connection.createStatement();
             editor_num = getEditorNum();
 
@@ -621,7 +610,7 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Download D NATURAL JOIN Application WHERE user_id = "+user_id );
@@ -659,7 +648,7 @@ public class QueryService {
         List<Movie> owned_movies = new ArrayList<Movie>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT movie_id,movie_name,release_date,imdb_rate FROM Download_movie D,User U, Movie M WHERE U.user_id in(SELECT user_id"+
@@ -697,7 +686,6 @@ public class QueryService {
         List<Book> owned_books = new ArrayList<Book>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT book_id,book_name,release_date FROM Download_book D,User U, Book B WHERE U.user_id in(SELECT user_id"+
@@ -733,7 +721,7 @@ public class QueryService {
         List<Device> owned_devices = new ArrayList<Device>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery("SELECT device_id,model_version,os_version,CPU,RAM FROM Has_device H NATURAL JOIN Device WHERE H.user_id = "+user_id );
@@ -769,7 +757,6 @@ public class QueryService {
         List<Comment> owned_comments = new ArrayList<Comment>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             String query = "INSERT INTO Comment VALUES(default"+
@@ -799,7 +786,6 @@ public class QueryService {
         List<Comment> owned_comments = new ArrayList<Comment>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery("SELECT comment_id, user_id, app_id, content FROM Comment C,Application A WHERE A.app_id ="+
@@ -836,7 +822,6 @@ public class QueryService {
         List<Comment> owned_comments = new ArrayList<Comment>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery("SELECT comment_id,user_id,app_id,content FROM Comment WHERE user_id ="+user_id );
@@ -873,7 +858,6 @@ public class QueryService {
         List<Payment_method> owned_payment_methods = new ArrayList<Payment_method>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery("SELECT pay_id,user_id,IBAN,credit_card FROM Payment_method P, End_user E, User U WHERE P.user_id ="+
@@ -911,7 +895,6 @@ public class QueryService {
         //List<Payment_method> owned_payment_methods = new ArrayList<Payment_method>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery("SELECT set_id,theme,layout,dark_mode FROM User U, Settings S WHERE U.set_id = S.set_id AND user_id= "+user_id);
@@ -949,7 +932,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo, count FROM Download D NATURAL JOIN Application A, Request_publish R" +
@@ -987,7 +969,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R WHERE price =0  " +
@@ -1023,8 +1004,7 @@ public class QueryService {
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
-
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application A, Request_publish R " +
@@ -1061,7 +1041,6 @@ public class QueryService {
         List<Movie> owned_movies = new ArrayList<Movie>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery("SELECT * FROM Movie");
@@ -1097,7 +1076,6 @@ public class QueryService {
         List<Book> owned_books = new ArrayList<Book>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT * FROM Book" );
@@ -1131,7 +1109,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Wish_list W NATURAL JOIN Application A WHERE end_user_id ="+ user_id+
@@ -1170,7 +1147,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R " +
@@ -1210,8 +1186,7 @@ public class QueryService {
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
-
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Has_category H NATURAL JOIN Application A, Request_publish R WHERE category_name LIKE "+ "\""+search_category+"\"+" +
@@ -1249,7 +1224,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id, app_name FROM Has_category H NATURAL JOIN Application A, Request_publish R WHERE category_name LIKE"+
@@ -1287,8 +1261,7 @@ public class QueryService {
         Application owned_app = new Application();
         List<Application> owned_apps = new ArrayList<Application>();
         try {
-
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application WHERE app_id= "+app_id);
@@ -1325,7 +1298,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application A NATURAL JOIN Request_publish R WHERE price >0  " +
@@ -1363,7 +1335,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery(
@@ -1419,7 +1390,6 @@ public class QueryService {
         List<Integer> list = new ArrayList<Integer>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             //ResultSet rs1= statement.executeQuery((SELECT SUM(P.count) AS total FROM Download P GROUP BY P.app_id))
@@ -1480,7 +1450,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application WHERE app_name= "+ "\""+ app_name+"\"");
@@ -1515,7 +1484,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT * FROM User WHERE user_id = "+ user_id);
@@ -1595,7 +1563,6 @@ public class QueryService {
             Application owned_app = get_app_informations(app_name);
             try {
 
-                Connection connection = DriverManager.getConnection(google_con, userName, pass);
                 Statement statement = connection.createStatement();
 
                 String query1 = "INSERT INTO Download VALUES(" + user_id + "," + device_id + "," + owned_app.getApp_id() + "," + "1" + ");";
@@ -1625,7 +1592,6 @@ public class QueryService {
         Application owned_app = get_app_informations(app_name);
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             String query1 = "INSERT INTO Rate VALUES(" + user_id + "," + owned_app.getApp_id() + "," + rate + ");";
@@ -1654,7 +1620,6 @@ public class QueryService {
         Double point = 0.0;
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
 
@@ -1682,7 +1647,6 @@ public class QueryService {
         Application owned_app = get_app_informations(app_name);
         try{
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             String query1 = "INSERT INTO Wish_list VALUES("+user_id+","+owned_app.getApp_id()+");";
@@ -1712,7 +1676,6 @@ public class QueryService {
 
         try{
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery("SELECT * FROM Editor");
@@ -1752,11 +1715,7 @@ public class QueryService {
 
         try{
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
-
-
-
 
             String query1 = "INSERT INTO Application VALUES("+"default"+","+
                     "\""+app_name+"\""+ ","+
@@ -1805,7 +1764,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application NATURAL JOIN Request_publish WHERE editor_id ="
@@ -1846,7 +1804,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             String query1 = "UPDATE Request_publish " +
@@ -1873,7 +1830,6 @@ public class QueryService {
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
             Statement statement = connection.createStatement();
 
             String query1 = "UPDATE Request_publish " +
