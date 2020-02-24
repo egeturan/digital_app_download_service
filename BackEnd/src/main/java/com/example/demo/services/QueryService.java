@@ -17,16 +17,13 @@ public class QueryService {
     /// General purpose
     //DONE
     Connection connection;
-    public QueryService(){
-        connection = DriverManager.getConnection(google_con, userName, pass);
-    }
-    public List<View> get_app_download_rate_views(){
-
+    public QueryService()throws SQLException{
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
         String userName = "root";
         String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
+        connection = DriverManager.getConnection(google_con, userName, pass);
+    }
+    public List<View> get_app_download_rate_views(){
 
         List<View> owned_apps = new ArrayList<View>();
         try {
@@ -64,11 +61,7 @@ public class QueryService {
 
     //DONE
     public List<View> get_app_rate_views(){
-
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
+        
         //Application[] owned_app_list
 
         List<View> owned_apps = new ArrayList<View>();
@@ -107,10 +100,7 @@ public class QueryService {
     //DONE
     public List<View> get_app_download_views(){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
+   
         //Application[] owned_app_list
 
         List<View> owned_apps = new ArrayList<View>();
@@ -149,12 +139,6 @@ public class QueryService {
     //DONE
     public List<Application> get_approved_applications(){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
-
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
@@ -187,11 +171,6 @@ public class QueryService {
     //DONE
     public List<Application> get_price_ranged_applications(int lowwer_price,int upper_price){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -225,11 +204,6 @@ public class QueryService {
     //DONE
     public Device get_Device(int device_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
         Device owned_device = new Device();
         //List<Device> owned_devices = new ArrayList<Device>();
         try {
@@ -256,10 +230,7 @@ public class QueryService {
     //DONE
     public void add_devices(int user_id,String model_version, String os_version, String CPU, String RAM){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
+   
         //Application[] owned_app_list
         Device owned_device = new Device();
         List<Device> owned_devices = new ArrayList<Device>();
@@ -293,9 +264,7 @@ public class QueryService {
     //DONE
     public void add_min_req (int app_id,String os_version, int RAM, String CPU){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
+     
         MinimumRequirements req = get_min_req(app_id);
 
         //Application[] owned_app_list
@@ -324,9 +293,7 @@ public class QueryService {
     //DONE
     public MinimumRequirements get_min_req (int app_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
+     
 
         //Application[] owned_app_list
         MinimumRequirements owned_req = new MinimumRequirements();
@@ -353,10 +320,6 @@ public class QueryService {
     //DONE
     public int getDeviceNum() {
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String user_name = "root";
-        String pass = "CS353FALL19";
-
         int counter = 0;
         try {
 
@@ -379,10 +342,6 @@ public class QueryService {
     //DONE
     public int getEndUserNum() {
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String user_name = "root";
-        String pass = "CS353FALL19";
-
         int counter = 0;
         try {
 
@@ -404,10 +363,7 @@ public class QueryService {
     //DONE
     public int getDeveloperNum() {
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String user_name = "root";
-        String pass = "CS353FALL19";
-
+     
         int counter = 0;
         try {
 
@@ -429,9 +385,7 @@ public class QueryService {
     //DONE
     public int getEditorNum() {
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String user_name = "root";
-        String pass = "CS353FALL19";
+     
 
         int counter = 0;
         try {
@@ -453,9 +407,7 @@ public class QueryService {
 
     //DONE
     public User registiration_end_user(String name, String surname, String birth_date, String email, String password) {
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String user_name = "root";
-        String pass = "CS353FALL19";
+    
         User new_user = new User();
         End_user new_end_user = new End_user();
         System.out.println(name + " " + surname + " " + birth_date + " " + email + " " + password);
@@ -492,9 +444,7 @@ public class QueryService {
     }
     //DONE
     public User registiration_developer(String name, String surname, String birth_date, String email, String password, String company_name) {
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String user_name = "root";
-        String pass = "CS353FALL19";
+      
         User new_user = new User();
         Developer new_developer = new Developer();
 
@@ -528,9 +478,7 @@ public class QueryService {
 
     //DONE
     public User registiration_editor(String name, String surname, String birth_date, String email, String password, int salary) {
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String user_name = "root";
-        String pass = "CS353FALL19";
+      
         User new_user = new User();
         Editor new_editor = new Editor();
 
@@ -564,18 +512,14 @@ public class QueryService {
     //DONE
     public User loginQuery(String user_name, String password) {
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
+       
         User login_user = new User();
         boolean bool = false;
         try {
-
-            Connection connection = DriverManager.getConnection(google_con, userName, pass);
+            
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT* FROM User WHERE name =" +"\"" + user_name + "\""
                     + "AND password ="+ "\""+password+"\"" );
-
 
             while (rs.next()) {
                 bool = true;
@@ -601,10 +545,7 @@ public class QueryService {
     //DONE
     public List<Application> get_owned_applications(int user_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
+     
         //Application[] owned_app_list
 
         List<Application> owned_apps = new ArrayList<Application>();
@@ -639,12 +580,8 @@ public class QueryService {
     //WAITING
     public List<Movie> get_owned_movies(int  user_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
-
+     
+    
         List<Movie> owned_movies = new ArrayList<Movie>();
         try {
 
@@ -677,11 +614,7 @@ public class QueryService {
     //WAITING
     public List<Book> get_owned_books(int user_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
+ 
 
         List<Book> owned_books = new ArrayList<Book>();
         try {
@@ -712,10 +645,7 @@ public class QueryService {
     //DONE
     public List<Device> get_owned_devices(int user_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
+      
         //Application[] owned_app_list
 
         List<Device> owned_devices = new ArrayList<Device>();
@@ -748,10 +678,7 @@ public class QueryService {
     //WAITING
     public void make_comment(int user_id, int app_id, String text){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
+        
         //Application[] owned_app_list
 
         List<Comment> owned_comments = new ArrayList<Comment>();
@@ -776,13 +703,7 @@ public class QueryService {
     }
     //WAITING
     public List<Comment> get_apps_comments(int app_id){
-
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
-
+        
         List<Comment> owned_comments = new ArrayList<Comment>();
         try {
 
@@ -812,12 +733,6 @@ public class QueryService {
     }
     //WAITING
     public List<Comment> get_owned_comments(int user_id){
-
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
 
         List<Comment> owned_comments = new ArrayList<Comment>();
         try {
@@ -849,11 +764,7 @@ public class QueryService {
     // WAITING
     public List<Payment_method> get_owned_payments(int user_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
+    
 
         List<Payment_method> owned_payment_methods = new ArrayList<Payment_method>();
         try {
@@ -885,11 +796,7 @@ public class QueryService {
 
     //WAITING
     public Settings get_owned_settings(int user_id){
-
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
+        
         Settings owned_settings = new Settings();
         //Application[] owned_app_list
         //List<Payment_method> owned_payment_methods = new ArrayList<Payment_method>();
@@ -923,12 +830,6 @@ public class QueryService {
     // WAITING
     public List<Application> get_best_selling_applications(){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
-
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
@@ -960,11 +861,7 @@ public class QueryService {
     //DONE
     public List<Application> get_free_applications(){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
+   
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -996,11 +893,7 @@ public class QueryService {
     // WAITING
     public List<Application> get_new_added_applications(){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
+    
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -1032,12 +925,7 @@ public class QueryService {
     //WAITING
     public List<Movie> get_movies() {
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
-
+    
         List<Movie> owned_movies = new ArrayList<Movie>();
         try {
 
@@ -1067,12 +955,7 @@ public class QueryService {
     //WAITING
     public List<Book> get_books(int user_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
-
+    
         List<Book> owned_books = new ArrayList<Book>();
         try {
 
@@ -1100,12 +983,7 @@ public class QueryService {
     //DONE
     public List<Application> get_wish_list(int  user_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
-
+       
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
@@ -1137,11 +1015,6 @@ public class QueryService {
     //DONE
     public List<Application> search_app(String search_app){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
         String search_string = "\""+ search_app + "%"+"\"";
         search_app +="%";
         List<Application> owned_apps = new ArrayList<Application>();
@@ -1178,11 +1051,6 @@ public class QueryService {
     //WAITING
     public List<Application> search_category(String search_category){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -1214,13 +1082,6 @@ public class QueryService {
     }
     //WAITING
     public List<Application> search_app_and_category(String search_app,String search_category){
-
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
-
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
@@ -1253,11 +1114,7 @@ public class QueryService {
     //DONE
     public Application get_app(int app_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
+      
         Application owned_app = new Application();
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -1289,11 +1146,7 @@ public class QueryService {
     //DONE
     public List<Application> get_app_on_sale(){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
+      
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -1326,11 +1179,7 @@ public class QueryService {
     //DONE
     public List<Application> get_app_best_rate(){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
+       
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -1380,11 +1229,7 @@ public class QueryService {
     //DONE
     public List<Application> get_app_most_downloaded(){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
+     
 
         List<Application> owned_apps = new ArrayList<Application>();
         List<Integer> list = new ArrayList<Integer>();
@@ -1441,11 +1286,6 @@ public class QueryService {
     //DONE
     public Application get_app_informations(String app_name){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
         Application owned_app = new Application();
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -1475,11 +1315,6 @@ public class QueryService {
     //DONE
     public User get_User(int user_id){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
         User user = new User();
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -1519,10 +1354,6 @@ public class QueryService {
     }
     //DONE
     public void download_app(int user_id,String app_name, int device_id){
-
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
 
         //Application[] owned_app_list
         Device device = get_Device(device_id);
@@ -1584,10 +1415,6 @@ public class QueryService {
     //DONE
     public void rate_app(int user_id,String app_name, double rate) {
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
         //Application[] owned_app_list
         Application owned_app = get_app_informations(app_name);
         try {
@@ -1609,11 +1436,7 @@ public class QueryService {
 
     //DONE
     public Double get_rate_app(String app_name) {
-
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
+        
         //Application[] owned_app_list
         Application owned_app = get_app_informations(app_name);
         Rate rate = new Rate();
@@ -1639,11 +1462,6 @@ public class QueryService {
     //DONE
     public void add_app_wish_list(int user_id,String app_name){
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-        //Application[] owned_app_list
         Application owned_app = get_app_informations(app_name);
         try{
 
@@ -1664,14 +1482,7 @@ public class QueryService {
     // Upload Request Page queries:
     //DONE
     public List<Editor> get_editors(){
-
-
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
-
-
+        
         List<Editor> editors = new ArrayList<Editor>();
 
         try{
@@ -1699,10 +1510,7 @@ public class QueryService {
 
         // important comment : developer_id is already user_id so get it from global user_id object
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
+     
         //Application[] owned_app_list
         Application owned_app = new Application();
 
@@ -1755,9 +1563,7 @@ public class QueryService {
     public List<Application> get_requested_apps(int editor_id){
         // we are already editor in this page so user_id = editor_id
 
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
+       
 
         //Application[] owned_app_list
 
@@ -1792,13 +1598,6 @@ public class QueryService {
     //DONE
     public void approve_request(int editor_id,int app_id){
         // we are already editor in this page so user_id = editor_id
-
-
-
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
         //Application[] owned_app_list
         Application owned_app = new Application();
         List<Application> owned_apps = new ArrayList<Application>();
@@ -1820,11 +1619,6 @@ public class QueryService {
 
     public void reject_request(int editor_id,int app_id){
         // we are already editor in this page so user_id = editor_id
-
-        String google_con = "jdbc:mysql://35.242.165.113/adastore";
-        String userName = "root";
-        String pass = "CS353FALL19";
-
         //Application[] owned_app_list
         Application owned_app = new Application();
         List<Application> owned_apps = new ArrayList<Application>();
