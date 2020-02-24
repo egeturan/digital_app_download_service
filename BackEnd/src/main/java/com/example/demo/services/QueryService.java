@@ -17,11 +17,16 @@ public class QueryService {
     /// General purpose
     //DONE
     Connection connection;
-    public QueryService()throws SQLException{
+    public QueryService(){
         String google_con = "jdbc:mysql://35.242.165.113/adastore";
         String userName = "root";
         String pass = "CS353FALL19";
-        connection = DriverManager.getConnection(google_con, userName, pass);
+        try{
+            connection = DriverManager.getConnection(google_con, userName, pass);
+        }catch(Exception e){
+            System.err.println("Error Statement or Connection Failed!");
+            e.printStackTrace();
+        }
     }
     public List<View> get_app_download_rate_views(){
 
@@ -61,7 +66,7 @@ public class QueryService {
 
     //DONE
     public List<View> get_app_rate_views(){
-        
+
         //Application[] owned_app_list
 
         List<View> owned_apps = new ArrayList<View>();
@@ -100,7 +105,7 @@ public class QueryService {
     //DONE
     public List<View> get_app_download_views(){
 
-   
+
         //Application[] owned_app_list
 
         List<View> owned_apps = new ArrayList<View>();
@@ -230,7 +235,7 @@ public class QueryService {
     //DONE
     public void add_devices(int user_id,String model_version, String os_version, String CPU, String RAM){
 
-   
+
         //Application[] owned_app_list
         Device owned_device = new Device();
         List<Device> owned_devices = new ArrayList<Device>();
@@ -264,7 +269,7 @@ public class QueryService {
     //DONE
     public void add_min_req (int app_id,String os_version, int RAM, String CPU){
 
-     
+
         MinimumRequirements req = get_min_req(app_id);
 
         //Application[] owned_app_list
@@ -293,14 +298,14 @@ public class QueryService {
     //DONE
     public MinimumRequirements get_min_req (int app_id){
 
-     
+
 
         //Application[] owned_app_list
         MinimumRequirements owned_req = new MinimumRequirements();
         try {
-            
+
             Statement statement = connection.createStatement();
-           
+
             ResultSet rs = statement.executeQuery("SELECT app_id, CPU, RAM, OS_version FROM  Minimum_requirements M NATURAL JOIN Application A WHERE app_id ="+ app_id);
 
             while(rs.next()){
@@ -363,7 +368,7 @@ public class QueryService {
     //DONE
     public int getDeveloperNum() {
 
-     
+
         int counter = 0;
         try {
 
@@ -385,7 +390,7 @@ public class QueryService {
     //DONE
     public int getEditorNum() {
 
-     
+
 
         int counter = 0;
         try {
@@ -407,7 +412,7 @@ public class QueryService {
 
     //DONE
     public User registiration_end_user(String name, String surname, String birth_date, String email, String password) {
-    
+
         User new_user = new User();
         End_user new_end_user = new End_user();
         System.out.println(name + " " + surname + " " + birth_date + " " + email + " " + password);
@@ -444,7 +449,7 @@ public class QueryService {
     }
     //DONE
     public User registiration_developer(String name, String surname, String birth_date, String email, String password, String company_name) {
-      
+
         User new_user = new User();
         Developer new_developer = new Developer();
 
@@ -478,7 +483,7 @@ public class QueryService {
 
     //DONE
     public User registiration_editor(String name, String surname, String birth_date, String email, String password, int salary) {
-      
+
         User new_user = new User();
         Editor new_editor = new Editor();
 
@@ -512,11 +517,11 @@ public class QueryService {
     //DONE
     public User loginQuery(String user_name, String password) {
 
-       
+
         User login_user = new User();
         boolean bool = false;
         try {
-            
+
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("SELECT* FROM User WHERE name =" +"\"" + user_name + "\""
                     + "AND password ="+ "\""+password+"\"" );
@@ -545,7 +550,7 @@ public class QueryService {
     //DONE
     public List<Application> get_owned_applications(int user_id){
 
-     
+
         //Application[] owned_app_list
 
         List<Application> owned_apps = new ArrayList<Application>();
@@ -580,8 +585,8 @@ public class QueryService {
     //WAITING
     public List<Movie> get_owned_movies(int  user_id){
 
-     
-    
+
+
         List<Movie> owned_movies = new ArrayList<Movie>();
         try {
 
@@ -614,7 +619,7 @@ public class QueryService {
     //WAITING
     public List<Book> get_owned_books(int user_id){
 
- 
+
 
         List<Book> owned_books = new ArrayList<Book>();
         try {
@@ -645,7 +650,7 @@ public class QueryService {
     //DONE
     public List<Device> get_owned_devices(int user_id){
 
-      
+
         //Application[] owned_app_list
 
         List<Device> owned_devices = new ArrayList<Device>();
@@ -678,7 +683,7 @@ public class QueryService {
     //WAITING
     public void make_comment(int user_id, int app_id, String text){
 
-        
+
         //Application[] owned_app_list
 
         List<Comment> owned_comments = new ArrayList<Comment>();
@@ -703,7 +708,7 @@ public class QueryService {
     }
     //WAITING
     public List<Comment> get_apps_comments(int app_id){
-        
+
         List<Comment> owned_comments = new ArrayList<Comment>();
         try {
 
@@ -764,7 +769,7 @@ public class QueryService {
     // WAITING
     public List<Payment_method> get_owned_payments(int user_id){
 
-    
+
 
         List<Payment_method> owned_payment_methods = new ArrayList<Payment_method>();
         try {
@@ -796,7 +801,7 @@ public class QueryService {
 
     //WAITING
     public Settings get_owned_settings(int user_id){
-        
+
         Settings owned_settings = new Settings();
         //Application[] owned_app_list
         //List<Payment_method> owned_payment_methods = new ArrayList<Payment_method>();
@@ -861,7 +866,7 @@ public class QueryService {
     //DONE
     public List<Application> get_free_applications(){
 
-   
+
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -893,11 +898,11 @@ public class QueryService {
     // WAITING
     public List<Application> get_new_added_applications(){
 
-    
+
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
-            
+
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application A, Request_publish R " +
@@ -925,7 +930,7 @@ public class QueryService {
     //WAITING
     public List<Movie> get_movies() {
 
-    
+
         List<Movie> owned_movies = new ArrayList<Movie>();
         try {
 
@@ -955,7 +960,7 @@ public class QueryService {
     //WAITING
     public List<Book> get_books(int user_id){
 
-    
+
         List<Book> owned_books = new ArrayList<Book>();
         try {
 
@@ -983,7 +988,7 @@ public class QueryService {
     //DONE
     public List<Application> get_wish_list(int  user_id){
 
-       
+
         List<Application> owned_apps = new ArrayList<Application>();
         try {
 
@@ -1054,7 +1059,7 @@ public class QueryService {
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
-            
+
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id, app_name,publishing_date,price,text,logo FROM Has_category H NATURAL JOIN Application A, Request_publish R WHERE category_name LIKE "+ "\""+search_category+"\"+" +
@@ -1114,11 +1119,11 @@ public class QueryService {
     //DONE
     public Application get_app(int app_id){
 
-      
+
         Application owned_app = new Application();
         List<Application> owned_apps = new ArrayList<Application>();
         try {
-            
+
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery( "SELECT app_id,app_name,publishing_date,price,text,logo FROM Application WHERE app_id= "+app_id);
@@ -1146,7 +1151,7 @@ public class QueryService {
     //DONE
     public List<Application> get_app_on_sale(){
 
-      
+
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -1179,7 +1184,7 @@ public class QueryService {
     //DONE
     public List<Application> get_app_best_rate(){
 
-       
+
 
         List<Application> owned_apps = new ArrayList<Application>();
         try {
@@ -1229,7 +1234,7 @@ public class QueryService {
     //DONE
     public List<Application> get_app_most_downloaded(){
 
-     
+
 
         List<Application> owned_apps = new ArrayList<Application>();
         List<Integer> list = new ArrayList<Integer>();
@@ -1436,7 +1441,7 @@ public class QueryService {
 
     //DONE
     public Double get_rate_app(String app_name) {
-        
+
         //Application[] owned_app_list
         Application owned_app = get_app_informations(app_name);
         Rate rate = new Rate();
@@ -1482,7 +1487,7 @@ public class QueryService {
     // Upload Request Page queries:
     //DONE
     public List<Editor> get_editors(){
-        
+
         List<Editor> editors = new ArrayList<Editor>();
 
         try{
@@ -1510,7 +1515,7 @@ public class QueryService {
 
         // important comment : developer_id is already user_id so get it from global user_id object
 
-     
+
         //Application[] owned_app_list
         Application owned_app = new Application();
 
@@ -1563,7 +1568,7 @@ public class QueryService {
     public List<Application> get_requested_apps(int editor_id){
         // we are already editor in this page so user_id = editor_id
 
-       
+
 
         //Application[] owned_app_list
 
